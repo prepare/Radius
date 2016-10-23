@@ -1,7 +1,57 @@
-The Radius
+Radius
 
-When I want to use the AngleSharp with HtmlRenderer :)
+When I want to use the AngleSharp (https://github.com/AngleSharp/AngleSharp)
+with HtmlRenderer (https://github.com/LayoutFarm/HtmlRenderer).
 
+
+This is an experiment project.
+Because I don't want to 'harm' to 'timeline' / 'code'/ 'code style' etc
+of the original project (AngleSharp).
+So I forked it and start this.
+
+---
+Aims:
+   1.  Test if this project can be use as a Html parser engine
+        of our HtmlRenderer project? 
+   2. Test the performanace of the parser, if it really fast 
+        to meet our need.
+   3. To find/ extract/ and define only essential interfaces that are needed to
+       work with the HtmlRenderer.
+   
+---
+Targets:  
+    Bridge LIbrary "Radius" that interface 
+    the AngleSharp with our HtmlRenderer
+
+---
+PLAEASE NOTE THAT:
+   I try to preserve the interfaces.
+   BUT 
+   I may change some the implementation code to meed our style.    
+   We still need to compat with .NET20.
+   We still need a fast parser that meet dynamic html dom rendering.
+
+---
+CONTRIBUTTOR:
+
+
+JUST SEND IT!
+
+Just send a pull request with a description.
+
+Don't worry about coding style. I talk C#, If I don't understand I will ask you.
+
+I try to merge it.
+
+But I will change your code to meed our need too.
+
+Please think of this repo is just a design and playground repo. Quick/ Fast / (and+- dirty)
+
+After it settles -> It will resolve to more beautiful form.
+
+Win
+
+:)
 
 
 
