@@ -16,7 +16,7 @@
 Please think of this repo is just a design  and playground 
 repo. Quick/ Fast / (and+- dirty)
 
-After it sattle -> 
+After it sattles -> 
 It will resolve to more
 beautiful form.
 
