@@ -9,7 +9,7 @@
  I try to merge it.
  
  But 
- I will change your code to meed our need too. 
+ I will change your code to meet our needs too. 
  
 ----
 
