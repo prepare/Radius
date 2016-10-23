@@ -12,10 +12,10 @@ So I forked it and start this.
 
 ---
 Aims:
-   1.  Test if this project can be use as a Html parser engine
+   1.  Test if this project can be used as a Html parser engine
         of our HtmlRenderer project? 
-   2. Test the performanace of the parser, if it really fast 
-        to meet our need.
+   2. Test the performance of the parser, if it really fast 
+        to meet our needs.
    3. To find/ extract/ and define only essential interfaces that are needed to
        work with the HtmlRenderer.
    
