@@ -2909,19 +2909,19 @@
       <Link>Parser\Html\Tokens\HtmlToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlCDataToken.cs">
-      <Link>Parser\Xml\XmlCDataToken.cs</Link>
+      <Link>Parser\Xml\Tokens\XmlCDataToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlCharacterToken.cs">
-      <Link>Parser\Xml\XmlCharacterToken.cs</Link>
+      <Link>Parser\Xml\Tokens\XmlCharacterToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlCommentToken.cs">
-      <Link>Parser\Xml\XmlCommentToken.cs</Link>
+      <Link>Parser\Xml\Tokens\XmlCommentToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlDeclarationToken.cs">
-      <Link>Parser\Xml\XmlDeclarationToken.cs</Link>
+      <Link>Parser\Xml\Tokens\XmlDeclarationToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlDoctypeToken.cs">
-      <Link>Parser\Xml\XmlDoctypeToken.cs</Link>
+      <Link>Parser\Xml\Tokens\XmlDoctypeToken.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Parser\Xml\Tokens\XmlEndOfFileToken.cs">
       <Link>Parser\Xml\XmlEndOfFileToken.cs</Link>
@@ -3142,9 +3142,7 @@
     <Compile Include="NET20\ExtensionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parser\Xml\Tokens\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
