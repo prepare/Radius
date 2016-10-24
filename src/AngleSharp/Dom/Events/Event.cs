@@ -209,6 +209,7 @@
         /// <returns>A boolean if the event has been cancelled.</returns>
         internal Boolean Dispatch(IEventTarget target)
         {
+#if !RAD
             _flags |= EventFlags.Dispatch;
             _target = target;
 
@@ -242,6 +243,9 @@
             _phase = EventPhase.None;
             _current = null;
             return (_flags & EventFlags.Canceled) == EventFlags.Canceled;
+#else
+            throw new NotImplementedException("RAD");
+#endif
         }
 
         void CallListeners(IEventTarget target)
@@ -263,6 +267,6 @@
             }
         }
 
-        #endregion
+#endregion
     }
 }

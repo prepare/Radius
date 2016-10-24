@@ -88,7 +88,7 @@
         /// </summary>
         /// <param name="sourceElement">The form's submitter.</param>
         Task<IDocument> SubmitAsync(IHtmlElement sourceElement);
-
+#if !RAD
         /// <summary>
         /// Creates the document request from the form submitting itself.
         /// </summary>
@@ -102,7 +102,7 @@
         /// <param name="sourceElement">The form's submitter.</param>
         /// <returns>The resulting document (e.g., HTTP) request.</returns>
         DocumentRequest GetSubmission(IHtmlElement sourceElement);
-
+#endif
         /// <summary>
         /// Resets the form to the previous (default) state.
         /// </summary>

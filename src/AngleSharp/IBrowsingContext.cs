@@ -28,6 +28,7 @@
         /// </summary>
         Sandboxes Security { get; }
 
+#if !RAD
         /// <summary>
         /// Gets the configuration for the browsing context.
         /// </summary>
@@ -37,7 +38,7 @@
         /// Gets the assigned document loader, if any.
         /// </summary>
         IDocumentLoader Loader { get; }
-
+#endif
         /// <summary>
         /// Gets the parent of the current context, if any. If a parent is
         /// available, then the current context contains only embedded

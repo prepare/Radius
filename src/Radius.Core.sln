@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp.Core", "NET45\An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular.Core.SubCore1", "NET45\Angular.Core.SubCore1\Angular.Core.SubCore1.csproj", "{519A153E-06EC-4E60-9F31-FFFA448B76C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular.Core.Interfaces", "NET45\Angular.Core.Interfaces\Angular.Core.Interfaces.csproj", "{2EAF6332-DD48-407B-8023-FE36FD725A39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{519A153E-06EC-4E60-9F31-FFFA448B76C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{519A153E-06EC-4E60-9F31-FFFA448B76C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{519A153E-06EC-4E60-9F31-FFFA448B76C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAF6332-DD48-407B-8023-FE36FD725A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAF6332-DD48-407B-8023-FE36FD725A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAF6332-DD48-407B-8023-FE36FD725A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAF6332-DD48-407B-8023-FE36FD725A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{1FF31B98-B7D2-4694-A430-09DD112BBE33} = {74B6F368-069B-4F47-8304-9888B6E213CF}
 		{9C452776-C595-46C3-A093-5756C345CE55} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
 		{519A153E-06EC-4E60-9F31-FFFA448B76C9} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
+		{2EAF6332-DD48-407B-8023-FE36FD725A39} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2EAF6332-DD48-407B-8023-FE36FD725A39}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Angular.Core.Interfaces</RootNamespace>
+    <AssemblyName>Angular.Core.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;RAD</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AngleSharp\Attributes\Accessors.cs">
+      <Link>Attributes\Accessors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomAccessorAttribute.cs">
+      <Link>Attributes\DomAccessorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomConstructorAttribute.cs">
+      <Link>Attributes\DomConstructorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomDescriptionAttribute.cs">
+      <Link>Attributes\DomDescriptionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomHistoricalAttribute.cs">
+      <Link>Attributes\DomHistoricalAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomInitDictAttribute.cs">
+      <Link>Attributes\DomInitDictAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomLenientThisAttribute.cs">
+      <Link>Attributes\DomLenientThisAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomLiteralsAttribute.cs">
+      <Link>Attributes\DomLiteralsAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomNameAttribute.cs">
+      <Link>Attributes\DomNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomNoInterfaceObjectAttribute.cs">
+      <Link>Attributes\DomNoInterfaceObjectAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Attributes\DomPutForwardsAttribute.cs">
+      <Link>Attributes\DomPutForwardsAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\Priority.cs">
+      <Link>Css\Priority.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\Values\Percent.cs">
+      <Link>Css\Values\Percent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\AdjacentPosition.cs">
+      <Link>Dom\Constants\AdjacentPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\Alignment.cs">
+      <Link>Dom\Constants\Alignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\CacheStatus.cs">
+      <Link>Dom\Constants\CacheStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\ContentEditableMode.cs">
+      <Link>Dom\Constants\ContentEditableMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\CssRuleType.cs">
+      <Link>Dom\Constants\CssRuleType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\DirectionMode.cs">
+      <Link>Dom\Constants\DirectionMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\DocumentPositions.cs">
+      <Link>Dom\Constants\DocumentPositions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\DocumentReadyState.cs">
+      <Link>Dom\Constants\DocumentReadyState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\DomError.cs">
+      <Link>Dom\Constants\DomError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\EventPhase.cs">
+      <Link>Dom\Constants\EventPhase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\FilterResult.cs">
+      <Link>Dom\Constants\FilterResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\FilterSettings.cs">
+      <Link>Dom\Constants\FilterSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\HorizontalAlignment.cs">
+      <Link>Dom\Constants\HorizontalAlignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\KeyboardLocation.cs">
+      <Link>Dom\Constants\KeyboardLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MediaControllerPlaybackState.cs">
+      <Link>Dom\Constants\MediaControllerPlaybackState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MediaErrorCode.cs">
+      <Link>Dom\Constants\MediaErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MediaNetworkState.cs">
+      <Link>Dom\Constants\MediaNetworkState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MediaReadyState.cs">
+      <Link>Dom\Constants\MediaReadyState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MouseButton.cs">
+      <Link>Dom\Constants\MouseButton.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\MouseButtons.cs">
+      <Link>Dom\Constants\MouseButtons.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\NodeType.cs">
+      <Link>Dom\Constants\NodeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\QuirksMode.cs">
+      <Link>Dom\Constants\QuirksMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\RangePosition.cs">
+      <Link>Dom\Constants\RangePosition.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\RangeType.cs">
+      <Link>Dom\Constants\RangeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\Sandboxes.cs">
+      <Link>Dom\Constants\Sandboxes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\ShadowRootMode.cs">
+      <Link>Dom\Constants\ShadowRootMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\SimpleChoice.cs">
+      <Link>Dom\Constants\SimpleChoice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\TableFrames.cs">
+      <Link>Dom\Constants\TableFrames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\TableRules.cs">
+      <Link>Dom\Constants\TableRules.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\TextTrackMode.cs">
+      <Link>Dom\Constants\TextTrackMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\TrackReadyState.cs">
+      <Link>Dom\Constants\TrackReadyState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\VerticalAlignment.cs">
+      <Link>Dom\Constants\VerticalAlignment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\Visibility.cs">
+      <Link>Dom\Constants\Visibility.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\WheelMode.cs">
+      <Link>Dom\Constants\WheelMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\dom\constants\WordBreak.cs">
+      <Link>Dom\Constants\WordBreak.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\DomEventHandler.cs">
+      <Link>Dom\DomEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\Events\Event.cs">
+      <Link>Dom\Events\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\NodeFilter.cs">
+      <Link>Dom\NodeFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Foundation\TaskPriority.cs">
+      <Link>Foundation\TaskPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\AttributeNames.cs">
+      <Link>Html\AttributeNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\EventFlags.cs">
+      <Link>Html\EventFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\EventNames.cs">
+      <Link>Html\EventNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IBrowsingContext.cs">
+      <Link>IBrowsingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\ICancellable.cs">
+      <Link>ICancellable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IConfiguration.cs">
+      <Link>IConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IEventLoop.cs">
+      <Link>IEventLoop.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IMarkupFormattable.cs">
+      <Link>IMarkupFormattable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IMarkupFormatter.cs">
+      <Link>IMarkupFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IConditionFunction.cs">
+      <Link>Interfaces\Css\IConditionFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssCharsetRule.cs">
+      <Link>Interfaces\Css\ICssCharsetRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssComment.cs">
+      <Link>Interfaces\Css\ICssComment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssConditionRule.cs">
+      <Link>Interfaces\Css\ICssConditionRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssCounterStyleRule.cs">
+      <Link>Interfaces\Css\ICssCounterStyleRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssDocumentRule.cs">
+      <Link>Interfaces\Css\ICssDocumentRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssFontFaceRule.cs">
+      <Link>Interfaces\Css\ICssFontFaceRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssFontFeatureValuesRule.cs">
+      <Link>Interfaces\Css\ICssFontFeatureValuesRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssGroupingRule.cs">
+      <Link>Interfaces\Css\ICssGroupingRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssImportRule.cs">
+      <Link>Interfaces\Css\ICssImportRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssKeyframeRule.cs">
+      <Link>Interfaces\Css\ICssKeyframeRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssKeyframesRule.cs">
+      <Link>Interfaces\Css\ICssKeyframesRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssMarginRule.cs">
+      <Link>Interfaces\Css\ICssMarginRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssMediaRule.cs">
+      <Link>Interfaces\Css\ICssMediaRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssMedium.cs">
+      <Link>Interfaces\Css\ICssMedium.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssNamespaceRule.cs">
+      <Link>Interfaces\Css\ICssNamespaceRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssNode.cs">
+      <Link>Interfaces\Css\ICssNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssPageRule.cs">
+      <Link>Interfaces\Css\ICssPageRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssProperties .cs">
+      <Link>Interfaces\Css\ICssProperties .cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssProperty.cs">
+      <Link>Interfaces\Css\ICssProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssRule.cs">
+      <Link>Interfaces\Css\ICssRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssRuleCreator.cs">
+      <Link>Interfaces\Css\ICssRuleCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssRuleList.cs">
+      <Link>Interfaces\Css\ICssRuleList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssStyleDeclaration.cs">
+      <Link>Interfaces\Css\ICssStyleDeclaration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssStyleRule.cs">
+      <Link>Interfaces\Css\ICssStyleRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssStyleSheet.cs">
+      <Link>Interfaces\Css\ICssStyleSheet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ICssSupportsRule.cs">
+      <Link>Interfaces\Css\ICssSupportsRule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IDocumentFunction.cs">
+      <Link>Interfaces\Css\IDocumentFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IElementCssInlineStyle.cs">
+      <Link>Interfaces\Css\IElementCssInlineStyle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IKeyframeSelector.cs">
+      <Link>Interfaces\Css\IKeyframeSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IMediaFeature.cs">
+      <Link>Interfaces\Css\IMediaFeature.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IMediaList.cs">
+      <Link>Interfaces\Css\IMediaList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IMediaQueryList.cs">
+      <Link>Interfaces\Css\IMediaQueryList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\ISelector.cs">
+      <Link>Interfaces\Css\ISelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\css\IStyleUtilities.cs">
+      <Link>Interfaces\Css\IStyleUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\events\IGlobalEventHandlers.cs">
+      <Link>Interfaces\Events\IGlobalEventHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\events\IMessagePort.cs">
+      <Link>Interfaces\Events\IMessagePort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\events\ITouchList.cs">
+      <Link>Interfaces\Events\ITouchList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\events\ITouchPoint.cs">
+      <Link>Interfaces\Events\ITouchPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\events\IWindowEventHandlers.cs">
+      <Link>Interfaces\Events\IWindowEventHandlers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlAnchorElement.cs">
+      <Link>Interfaces\Html\IHtmlAnchorElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlAreaElement.cs">
+      <Link>Interfaces\Html\IHtmlAreaElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlAudioElement.cs">
+      <Link>Interfaces\Html\IHtmlAudioElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlBaseElement.cs">
+      <Link>Interfaces\Html\IHtmlBaseElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlBodyElement.cs">
+      <Link>Interfaces\Html\IHtmlBodyElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlBreakRowElement.cs">
+      <Link>Interfaces\Html\IHtmlBreakRowElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlButtonElement.cs">
+      <Link>Interfaces\Html\IHtmlButtonElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlCanvasElement.cs">
+      <Link>Interfaces\Html\IHtmlCanvasElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlCommandElement.cs">
+      <Link>Interfaces\Html\IHtmlCommandElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDataElement.cs">
+      <Link>Interfaces\Html\IHtmlDataElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDataListElement.cs">
+      <Link>Interfaces\Html\IHtmlDataListElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDetailsElement.cs">
+      <Link>Interfaces\Html\IHtmlDetailsElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDialogElement.cs">
+      <Link>Interfaces\Html\IHtmlDialogElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDivElement.cs">
+      <Link>Interfaces\Html\IHtmlDivElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlDocument.cs">
+      <Link>Interfaces\Html\IHtmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlElement.cs">
+      <Link>Interfaces\Html\IHtmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlEmbedElement.cs">
+      <Link>Interfaces\Html\IHtmlEmbedElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlFieldSetElement.cs">
+      <Link>Interfaces\Html\IHtmlFieldSetElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlFormControlsCollection.cs">
+      <Link>Interfaces\Html\IHtmlFormControlsCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlFormElement.cs">
+      <Link>Interfaces\Html\IHtmlFormElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlHeadElement.cs">
+      <Link>Interfaces\Html\IHtmlHeadElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlHeadingElement.cs">
+      <Link>Interfaces\Html\IHtmlHeadingElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlHrElement.cs">
+      <Link>Interfaces\Html\IHtmlHrElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlHtmlElement.cs">
+      <Link>Interfaces\Html\IHtmlHtmlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlImageElement.cs">
+      <Link>Interfaces\Html\IHtmlImageElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlInlineFrameElement.cs">
+      <Link>Interfaces\Html\IHtmlInlineFrameElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlInputElement.cs">
+      <Link>Interfaces\Html\IHtmlInputElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlKeygenElement.cs">
+      <Link>Interfaces\Html\IHtmlKeygenElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlLabelElement.cs">
+      <Link>Interfaces\Html\IHtmlLabelElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlLegendElement.cs">
+      <Link>Interfaces\Html\IHtmlLegendElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlLinkElement.cs">
+      <Link>Interfaces\Html\IHtmlLinkElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlListItemElement.cs">
+      <Link>Interfaces\Html\IHtmlListItemElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMapElement.cs">
+      <Link>Interfaces\Html\IHtmlMapElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMediaElement.cs">
+      <Link>Interfaces\Html\IHtmlMediaElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMenuElement.cs">
+      <Link>Interfaces\Html\IHtmlMenuElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMenuItemElement.cs">
+      <Link>Interfaces\Html\IHtmlMenuItemElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMetaElement.cs">
+      <Link>Interfaces\Html\IHtmlMetaElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlMeterElement.cs">
+      <Link>Interfaces\Html\IHtmlMeterElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlModElement.cs">
+      <Link>Interfaces\Html\IHtmlModElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlObjectElement.cs">
+      <Link>Interfaces\Html\IHtmlObjectElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlOptionElement.cs">
+      <Link>Interfaces\Html\IHtmlOptionElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlOptionsCollection.cs">
+      <Link>Interfaces\Html\IHtmlOptionsCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlOptionsGroupElement.cs">
+      <Link>Interfaces\Html\IHtmlOptionsGroupElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlOrderedListElement.cs">
+      <Link>Interfaces\Html\IHtmlOrderedListElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlOutputElement.cs">
+      <Link>Interfaces\Html\IHtmlOutputElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlParagraphElement.cs">
+      <Link>Interfaces\Html\IHtmlParagraphElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlParamElement.cs">
+      <Link>Interfaces\Html\IHtmlParamElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlPreElement.cs">
+      <Link>Interfaces\Html\IHtmlPreElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlProgressElement.cs">
+      <Link>Interfaces\Html\IHtmlProgressElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlQuoteElement.cs">
+      <Link>Interfaces\Html\IHtmlQuoteElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlScriptElement.cs">
+      <Link>Interfaces\Html\IHtmlScriptElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlSelectElement.cs">
+      <Link>Interfaces\Html\IHtmlSelectElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlSlotElement.cs">
+      <Link>Interfaces\Html\IHtmlSlotElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlSourceElement.cs">
+      <Link>Interfaces\Html\IHtmlSourceElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlSpanElement.cs">
+      <Link>Interfaces\Html\IHtmlSpanElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlStyleElement.cs">
+      <Link>Interfaces\Html\IHtmlStyleElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableCaptionElement.cs">
+      <Link>Interfaces\Html\IHtmlTableCaptionElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableCellElement.cs">
+      <Link>Interfaces\Html\IHtmlTableCellElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableColumnElement.cs">
+      <Link>Interfaces\Html\IHtmlTableColumnElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableDataCellElement.cs">
+      <Link>Interfaces\Html\IHtmlTableDataCellElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableElement.cs">
+      <Link>Interfaces\Html\IHtmlTableElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableHeaderCellElement.cs">
+      <Link>Interfaces\Html\IHtmlTableHeaderCellElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableRowElement.cs">
+      <Link>Interfaces\Html\IHtmlTableRowElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTableSectionElement.cs">
+      <Link>Interfaces\Html\IHtmlTableSectionElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTemplateElement.cs">
+      <Link>Interfaces\Html\IHtmlTemplateElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTextAreaElement.cs">
+      <Link>Interfaces\Html\IHtmlTextAreaElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTimeElement.cs">
+      <Link>Interfaces\Html\IHtmlTimeElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTitleElement.cs">
+      <Link>Interfaces\Html\IHtmlTitleElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlTrackElement.cs">
+      <Link>Interfaces\Html\IHtmlTrackElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlUnknownElement.cs">
+      <Link>Interfaces\Html\IHtmlUnknownElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlUnorderedListElement.cs">
+      <Link>Interfaces\Html\IHtmlUnorderedListElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IHtmlVideoElement.cs">
+      <Link>Interfaces\Html\IHtmlVideoElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\ILabelabelElement.cs">
+      <Link>Interfaces\Html\ILabelabelElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IValidation.cs">
+      <Link>Interfaces\Html\IValidation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\html\IValidityState.cs">
+      <Link>Interfaces\Html\IValidityState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IApplicationCache.cs">
+      <Link>Interfaces\IApplicationCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IAttr.cs">
+      <Link>Interfaces\IAttr.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IBindable.cs">
+      <Link>Interfaces\IBindable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ICharacterData.cs">
+      <Link>Interfaces\ICharacterData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IChildNode.cs">
+      <Link>Interfaces\IChildNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IComment.cs">
+      <Link>Interfaces\IComment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IDocument.cs">
+      <Link>Interfaces\IDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IDocumentFragment.cs">
+      <Link>Interfaces\IDocumentFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IDocumentStyle.cs">
+      <Link>Interfaces\IDocumentStyle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IDocumentType.cs">
+      <Link>Interfaces\IDocumentType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IDomException.cs">
+      <Link>Interfaces\IDomException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IElement.cs">
+      <Link>Interfaces\IElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IEventTarget.cs">
+      <Link>Interfaces\IEventTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IHistory.cs">
+      <Link>Interfaces\IHistory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IHtmlAllCollection.cs">
+      <Link>Interfaces\IHtmlAllCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IHtmlCollection.cs">
+      <Link>Interfaces\IHtmlCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IImplementation.cs">
+      <Link>Interfaces\IImplementation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ILinkImport.cs">
+      <Link>Interfaces\ILinkImport.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ILinkStyle.cs">
+      <Link>Interfaces\ILinkStyle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ILoadableElement.cs">
+      <Link>Interfaces\ILoadableElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ILocation.cs">
+      <Link>Interfaces\ILocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IMutationRecord.cs">
+      <Link>Interfaces\IMutationRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INamedNodeMap.cs">
+      <Link>Interfaces\INamedNodeMap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INode.cs">
+      <Link>Interfaces\INode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INodeIterator.cs">
+      <Link>Interfaces\INodeIterator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INodeList.cs">
+      <Link>Interfaces\INodeList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INonDocumentTypeChildNode.cs">
+      <Link>Interfaces\INonDocumentTypeChildNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\INonElementParentNode.cs">
+      <Link>Interfaces\INonElementParentNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\io\IBlob.cs">
+      <Link>Interfaces\Io\IBlob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\io\IFile.cs">
+      <Link>Interfaces\Io\IFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\io\IFileList.cs">
+      <Link>Interfaces\Io\IFileList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IParentNode.cs">
+      <Link>Interfaces\IParentNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IProcessingInstruction.cs">
+      <Link>Interfaces\IProcessingInstruction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IPseudoElement.cs">
+      <Link>Interfaces\IPseudoElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IRange.cs">
+      <Link>Interfaces\IRange.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ISettableTokenList.cs">
+      <Link>Interfaces\ISettableTokenList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IShadowRoot.cs">
+      <Link>Interfaces\IShadowRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IStringList.cs">
+      <Link>Interfaces\IStringList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IStringMap.cs">
+      <Link>Interfaces\IStringMap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IStyleSheet.cs">
+      <Link>Interfaces\IStyleSheet.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IStyleSheetList.cs">
+      <Link>Interfaces\IStyleSheetList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IText.cs">
+      <Link>Interfaces\IText.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ITokenList.cs">
+      <Link>Interfaces\ITokenList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\ITreeWalker.cs">
+      <Link>Interfaces\ITreeWalker.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IUrlUtilities.cs">
+      <Link>Interfaces\IUrlUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IWindow.cs">
+      <Link>Interfaces\IWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\IWindowTimers.cs">
+      <Link>Interfaces\IWindowTimers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IAudioTrack.cs">
+      <Link>Interfaces\Media\IAudioTrack.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IAudioTrackList.cs">
+      <Link>Interfaces\Media\IAudioTrackList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ICanvasRenderingContext2D.cs">
+      <Link>Interfaces\Media\ICanvasRenderingContext2D.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IMediaController.cs">
+      <Link>Interfaces\Media\IMediaController.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IMediaError.cs">
+      <Link>Interfaces\Media\IMediaError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IRenderingContext.cs">
+      <Link>Interfaces\Media\IRenderingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ITextTrack.cs">
+      <Link>Interfaces\Media\ITextTrack.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ITextTrackCue.cs">
+      <Link>Interfaces\Media\ITextTrackCue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ITextTrackCueList.cs">
+      <Link>Interfaces\Media\ITextTrackCueList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ITextTrackList.cs">
+      <Link>Interfaces\Media\ITextTrackList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\ITimeRanges.cs">
+      <Link>Interfaces\Media\ITimeRanges.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IVideoTrack.cs">
+      <Link>Interfaces\Media\IVideoTrack.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\media\IVideoTrackList.cs">
+      <Link>Interfaces\Media\IVideoTrackList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\navigator\INavigator.cs">
+      <Link>Interfaces\Navigator\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\navigator\INavigatorContentUtilities.cs">
+      <Link>Interfaces\Navigator\INavigatorContentUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\navigator\INavigatorId.cs">
+      <Link>Interfaces\Navigator\INavigatorId.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\navigator\INavigatorOnline.cs">
+      <Link>Interfaces\Navigator\INavigatorOnline.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\navigator\INavigatorStorageUtilities.cs">
+      <Link>Interfaces\Navigator\INavigatorStorageUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgCircleElement.cs">
+      <Link>Interfaces\Svg\ISvgCircleElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgDescriptionElement.cs">
+      <Link>Interfaces\Svg\ISvgDescriptionElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgDocument.cs">
+      <Link>Interfaces\Svg\ISvgDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgElement.cs">
+      <Link>Interfaces\Svg\ISvgElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgForeignObjectElement.cs">
+      <Link>Interfaces\Svg\ISvgForeignObjectElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgSvgElement.cs">
+      <Link>Interfaces\Svg\ISvgSvgElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\svg\ISvgTitleElement.cs">
+      <Link>Interfaces\Svg\ISvgTitleElement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\interfaces\xml\IXmlDocument.cs">
+      <Link>Interfaces\Xml\IXmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IStyleFormattable.cs">
+      <Link>IStyleFormattable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\IStyleFormatter.cs">
+      <Link>IStyleFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\HeaderNames.cs">
+      <Link>Network\HeaderNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\HttpMethod.cs">
+      <Link>Network\HttpMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IDocumentLoader.cs">
+      <Link>Network\IDocumentLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IDownload.cs">
+      <Link>Network\IDownload.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\ILoader.cs">
+      <Link>Network\ILoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IRequest.cs">
+      <Link>Network\IRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IRequester.cs">
+      <Link>Network\IRequester.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IResourceLoader.cs">
+      <Link>Network\IResourceLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\IResponse.cs">
+      <Link>Network\IResponse.cs</Link>
+    </Compile>
+    <Compile Include="My\TempClasses.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Angular.Core.SubCore1\Angular.Core.SubCore1.csproj">
+      <Project>{519a153e-06ec-4e60-9f31-fffa448b76c9}</Project>
+      <Name>Angular.Core.SubCore1</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
