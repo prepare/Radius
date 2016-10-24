@@ -69,7 +69,10 @@
             : this(encoding)
         {
             _baseStream = baseStream;
+#if RAD
+#else
             _content = Pool.NewStringBuilder();
+#endif
             _confidence = EncodingConfidence.Tentative;
         }
 
@@ -101,7 +104,7 @@
         public Encoding CurrentEncoding
         {
             get { return _encoding; }
-            set 
+            set
             {
                 if (_confidence != EncodingConfidence.Tentative)
                 {
@@ -362,7 +365,7 @@
                 offset = 4;
             }
 
-            if (offset > 0) 
+            if (offset > 0)
             {
                 count -= offset;
                 Array.Copy(_buffer, offset, _buffer, 0, count);
