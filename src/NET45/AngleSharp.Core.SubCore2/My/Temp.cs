@@ -12,10 +12,15 @@ using AngleSharp.Dom.Events;
 namespace AngleSharp
 {
     public class BrowsingContext : IBrowsingContext
-    {   
+    {
+        IConfiguration config;
+        public BrowsingContext(IConfiguration config)
+        {
+
+        }
         public static IBrowsingContext New(IConfiguration config)
         {
-            throw new NotImplementedException("RAD");
+            return new BrowsingContext(config);
         }
         public IDocument Active
         {
@@ -268,7 +273,10 @@ namespace AngleSharp
     {
         public static Boolean IsScripting(this IConfiguration configuration)
         {
-            throw new NotSupportedException("RAD");
+
+            //throw new NotSupportedException("RAD");
+            //return configuration?.GetProvider<IScriptingProvider>() != null;
+            return false;
         }
     }
 

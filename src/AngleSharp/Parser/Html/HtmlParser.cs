@@ -101,7 +101,7 @@
         {
 
 #if RAD
-            throw new NotImplementedException("RAD");
+            throw new NotImplementedException("RAD"); 
 #else
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
@@ -202,10 +202,11 @@
 #endif
         }
 
-#endregion
+        #endregion
 
-#region Helpers
+        #region Helpers
 #if RAD
+      
 #else
 
         HtmlDocument CreateDocument(String source)
@@ -226,6 +227,6 @@
             return document;
         }
 #endif
-#endregion
+        #endregion
     }
 }
