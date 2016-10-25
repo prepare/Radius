@@ -146,6 +146,9 @@
         /// </summary>
         public ISelector ParseSelector(String selectorText)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var tokenizer = CreateTokenizer(selectorText);
             var token = tokenizer.Get();
             var creator = GetSelectorCreator();
@@ -159,6 +162,7 @@
             var valid = creator.IsValid;
             var result = creator.ToPool();
             return valid || _options.IsToleratingInvalidSelectors ? result : null;
+#endif
         }
 
         /// <summary>
@@ -166,15 +170,25 @@
         /// </summary>
         public IKeyframeSelector ParseKeyframeSelector(String keyText)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             return Parse(keyText, (b, t) => Tuple.Create(b.CreateKeyframeSelector(ref t), t));
+#endif
         }
 
         #endregion
 
         #region Internal Methods
-
+#if RAD
+        internal ICssStyleSheet ParseStylesheet(TextSource source)
+        {
+            throw new NotImplementedException("RAD");
+        }
+#else
         internal CssSelectorConstructor GetSelectorCreator()
         {
+
             var attributeSelector = _configuration.GetFactory<IAttributeSelectorFactory>();
             var pseudoClassSelector = _configuration.GetFactory<IPseudoClassSelectorFactory>();
             var pseudoElementSelector = _configuration.GetFactory<IPseudoElementSelectorFactory>();
@@ -276,10 +290,15 @@
             var builder = new CssBuilder(tokenizer, this);
             builder.FillDeclarations(style);
         }
+#endif
+
 
         #endregion
 
         #region Helpers
+
+#if RAD
+#else
 
         T Parse<T>(String source, Func<CssBuilder, CssToken, T> create)
         {
@@ -310,7 +329,7 @@
             var source = new TextSource(sourceCode);
             return new CssTokenizer(source);
         }
-
+#endif
         #endregion
     }
 }

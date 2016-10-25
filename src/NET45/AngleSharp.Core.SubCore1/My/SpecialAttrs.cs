@@ -6,6 +6,6 @@ namespace AngleSharp
     /// <summary>
     /// the will be replaced at il level before actual build
     /// </summary>
-    class MyAggressiveMethodInliningAttribute : Attribute { }
+    public class MyAggressiveMethodInliningAttribute : Attribute { }
 
 }

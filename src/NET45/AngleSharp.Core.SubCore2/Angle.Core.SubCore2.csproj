@@ -45,6 +45,9 @@
     <Compile Include="..\..\AngleSharp\Css\PseudoElementNames.cs">
       <Link>Css\PseudoElementNames.cs</Link>
     </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\DomException.cs">
+      <Link>Dom\DomException.cs</Link>
+    </Compile>
     <Compile Include="..\..\AngleSharp\Dom\Events\CssErrorEvent.cs">
       <Link>Dom\Events\CssErrorEvent.cs</Link>
     </Compile>
@@ -56,6 +59,9 @@
     </Compile>
     <Compile Include="..\..\AngleSharp\Extensions\StringExtensions.cs">
       <Link>Extensions\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Extensions\XmlExtensions.cs">
+      <Link>Extensions\XmlExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Foundation\Keywords.cs">
       <Link>Foundation\Keywords.cs</Link>

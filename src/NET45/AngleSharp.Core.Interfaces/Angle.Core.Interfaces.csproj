@@ -189,9 +189,6 @@
     <Compile Include="..\..\AngleSharp\Foundation\TaskPriority.cs">
       <Link>Foundation\TaskPriority.cs</Link>
     </Compile>
-    <Compile Include="..\..\AngleSharp\Html\AttributeNames.cs">
-      <Link>Html\AttributeNames.cs</Link>
-    </Compile>
     <Compile Include="..\..\AngleSharp\Html\EventFlags.cs">
       <Link>Html\EventFlags.cs</Link>
     </Compile>

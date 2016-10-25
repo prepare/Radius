@@ -99,9 +99,15 @@
         /// </summary>
         public IHtmlDocument Parse(String source)
         {
+
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
             return parser.Parse(_options);
+#endif
+
         }
 
         /// <summary>
@@ -109,6 +115,11 @@
         /// </summary>
         public INodeList ParseFragment(String source, IElement context)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
+
+
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
 
@@ -127,6 +138,7 @@
             }
 
             return parser.Parse(_options).ChildNodes;
+#endif
         }
 
         /// <summary>
@@ -134,9 +146,15 @@
         /// </summary>
         public IHtmlDocument Parse(Stream source)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
+            
             return parser.Parse(_options);
+#endif
+
         }
 
         /// <summary>
@@ -160,9 +178,13 @@
         /// </summary>
         public async Task<IHtmlDocument> ParseAsync(String source, CancellationToken cancel)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
             return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+#endif
         }
 
         /// <summary>
@@ -170,14 +192,21 @@
         /// </summary>
         public async Task<IHtmlDocument> ParseAsync(Stream source, CancellationToken cancel)
         {
+
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new HtmlDomBuilder(document);
             return await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
+#endif
         }
 
-        #endregion
+#endregion
 
-        #region Helpers
+#region Helpers
+#if RAD
+#else
 
         HtmlDocument CreateDocument(String source)
         {
@@ -196,7 +225,7 @@
             var document = new HtmlDocument(_context, textSource);
             return document;
         }
-
-        #endregion
+#endif
+#endregion
     }
 }

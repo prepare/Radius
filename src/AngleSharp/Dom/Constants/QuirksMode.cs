@@ -2,6 +2,9 @@
 {
     using AngleSharp.Attributes;
 
+#if RAD
+    public
+#endif
     /// <summary>
     /// A list of possible quirks mode states.
     /// </summary>

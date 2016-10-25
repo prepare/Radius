@@ -97,10 +97,15 @@
         /// </summary>
         public IXmlDocument Parse(String source)
         {
+
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new XmlDomBuilder(document);
             parser.Parse(_options);
             return document;
+#endif
         }
 
         /// <summary>
@@ -108,10 +113,14 @@
         /// </summary>
         public IXmlDocument Parse(Stream source)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new XmlDomBuilder(document);
             parser.Parse(_options);
             return document;
+#endif
         }
 
         /// <summary>
@@ -135,10 +144,15 @@
         /// </summary>
         public async Task<IXmlDocument> ParseAsync(String source, CancellationToken cancel)
         {
+
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new XmlDomBuilder(document);
             await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
             return document;
+#endif
         }
 
         /// <summary>
@@ -146,16 +160,22 @@
         /// </summary>
         public async Task<IXmlDocument> ParseAsync(Stream source, CancellationToken cancel)
         {
+#if RAD
+            throw new NotImplementedException("RAD");
+#else
             var document = CreateDocument(source);
             var parser = new XmlDomBuilder(document);
             await parser.ParseAsync(_options, cancel).ConfigureAwait(false);
             return document;
+#endif
         }
 
-        #endregion
+#endregion
 
-        #region Helpers
+#region Helpers
 
+#if RAD
+#else
         XmlDocument CreateDocument(String source)
         {
             var textSource = new TextSource(source);
@@ -173,7 +193,7 @@
             var document = new XmlDocument(_context, textSource);
             return document;
         }
-
-        #endregion
+#endif
+#endregion
     }
 }
