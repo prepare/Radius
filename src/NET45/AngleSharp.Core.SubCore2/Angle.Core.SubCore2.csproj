@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{31275A65-FB04-40C8-AFB7-F659D19A6908}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Angular.Core.SubCore2</RootNamespace>
+    <AssemblyName>Angle.Core.SubCore2</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;RAD</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AngleSharp\Attributes\DomDescriptionAttribute.cs">
+      <Link>Attributes\DomDescriptionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\CombinatorSymbols.cs">
+      <Link>Css\CombinatorSymbols.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\PropertyNames.cs">
+      <Link>Css\PropertyNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\PseudoClassNames.cs">
+      <Link>Css\PseudoClassNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Css\PseudoElementNames.cs">
+      <Link>Css\PseudoElementNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\Events\CssErrorEvent.cs">
+      <Link>Dom\Events\CssErrorEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\Events\HtmlErrorEvent.cs">
+      <Link>Dom\Events\HtmlErrorEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Extensions\CharExtensions.cs">
+      <Link>Extensions\CharExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Extensions\StringExtensions.cs">
+      <Link>Extensions\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Foundation\Keywords.cs">
+      <Link>Foundation\Keywords.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Foundation\Pool.cs">
+      <Link>Foundation\Pool.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Foundation\Symbols.cs">
+      <Link>Foundation\Symbols.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\HtmlEntityService.cs">
+      <Link>Html\HtmlEntityService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\TagNames.cs">
+      <Link>Html\TagNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\MimeType.cs">
+      <Link>Network\MimeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Network\MimeTypeNames.cs">
+      <Link>Network\MimeTypeNames.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\BaseTokenizer.cs">
+      <Link>Parser\BaseTokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssCombinator.cs">
+      <Link>Parser\Css\CssCombinator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssParseError.cs">
+      <Link>Parser\Css\CssParseError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssParser.cs">
+      <Link>Parser\Css\CssParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssParserOptions.cs">
+      <Link>Parser\Css\CssParserOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssTokenizer.cs">
+      <Link>Parser\Css\CssTokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssTokenType.cs">
+      <Link>Parser\Css\CssTokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\CssValueBuilder.cs">
+      <Link>Parser\Css\CssValueBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssColorToken.cs">
+      <Link>Parser\Css\Tokens\CssColorToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssCommentToken.cs">
+      <Link>Parser\Css\Tokens\CssCommentToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssFunctionToken.cs">
+      <Link>Parser\Css\Tokens\CssFunctionToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssKeywordToken.cs">
+      <Link>Parser\Css\Tokens\CssKeywordToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssNumberToken.cs">
+      <Link>Parser\Css\Tokens\CssNumberToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssRangeToken.cs">
+      <Link>Parser\Css\Tokens\CssRangeToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssStringToken.cs">
+      <Link>Parser\Css\Tokens\CssStringToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssToken.cs">
+      <Link>Parser\Css\Tokens\CssToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssUnitToken.cs">
+      <Link>Parser\Css\Tokens\CssUnitToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\css\tokens\CssUrlToken.cs">
+      <Link>Parser\Css\Tokens\CssUrlToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlParseError.cs">
+      <Link>Parser\Html\HtmlParseError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlParseException.cs">
+      <Link>Parser\Html\HtmlParseException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlParseMode.cs">
+      <Link>Parser\Html\HtmlParseMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlParser.cs">
+      <Link>Parser\Html\HtmlParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlParserOptions.cs">
+      <Link>Parser\Html\HtmlParserOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlTokenizer.cs">
+      <Link>Parser\Html\HtmlTokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlTokenType.cs">
+      <Link>Parser\Html\HtmlTokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\HtmlTreeMode.cs">
+      <Link>Parser\Html\HtmlTreeMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\tokens\HtmlDoctypeToken.cs">
+      <Link>Parser\Html\Tokens\HtmlDoctypeToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\tokens\HtmlTagToken.cs">
+      <Link>Parser\Html\Tokens\HtmlTagToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\html\tokens\HtmlToken.cs">
+      <Link>Parser\Html\Tokens\HtmlToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlCDataToken.cs">
+      <Link>Parser\Xml\Tokens\XmlCDataToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlCharacterToken.cs">
+      <Link>Parser\Xml\Tokens\XmlCharacterToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlCommentToken.cs">
+      <Link>Parser\Xml\Tokens\XmlCommentToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlDeclarationToken.cs">
+      <Link>Parser\Xml\Tokens\XmlDeclarationToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlDoctypeToken.cs">
+      <Link>Parser\Xml\Tokens\XmlDoctypeToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlEndOfFileToken.cs">
+      <Link>Parser\Xml\XmlEndOfFileToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlPIToken.cs">
+      <Link>Parser\Xml\XmlPIToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlTagToken.cs">
+      <Link>Parser\Xml\XmlTagToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\tokens\XmlToken.cs">
+      <Link>Parser\Xml\XmlToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlParseError.cs">
+      <Link>Parser\Xml\XmlParseError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlParseException.cs">
+      <Link>Parser\Xml\XmlParseException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlParser.cs">
+      <Link>Parser\Xml\XmlParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlParserExtensions.cs">
+      <Link>Parser\Xml\XmlParserExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlParserOptions.cs">
+      <Link>Parser\Xml\XmlParserOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlTokenizer.cs">
+      <Link>Parser\Xml\XmlTokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlTokenType.cs">
+      <Link>Parser\Xml\XmlTokenType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anglesharp\parser\xml\XmlTreeMode.cs">
+      <Link>Parser\Xml\XmlTreeMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Services\IAttributeSelectorFactory.cs">
+      <Link>Services\IAttributeSelectorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Services\IEntityProvider.cs">
+      <Link>Services\IEntityProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Services\IPseudoClassSelectorFactory.cs">
+      <Link>Services\IPseudoClassSelectorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Services\IPseudoElementSelectorFactory.cs">
+      <Link>Services\IPseudoElementSelectorFactory.cs</Link>
+    </Compile>
+    <Compile Include="My\Temp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AngleSharp.Core.Interfaces\Angle.Core.Interfaces.csproj">
+      <Project>{2eaf6332-dd48-407b-8023-fe36fd725a39}</Project>
+      <Name>Angle.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AngleSharp.Core.SubCore1\Angle.Core.SubCore1.csproj">
+      <Project>{519a153e-06ec-4e60-9f31-fffa448b76c9}</Project>
+      <Name>Angle.Core.SubCore1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AngleSharp.Core.SubCoreCss\Angle.SubCoreCss.csproj">
+      <Project>{892cdcec-45be-42ed-b9db-aa293ad4cca9}</Project>
+      <Name>Angle.SubCoreCss</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

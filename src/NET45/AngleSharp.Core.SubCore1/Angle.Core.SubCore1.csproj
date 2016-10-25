@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Angular.Core.SubCore1</RootNamespace>
-    <AssemblyName>Angular.Core.SubCore1</AssemblyName>
+    <AssemblyName>Angle.Core.SubCore1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

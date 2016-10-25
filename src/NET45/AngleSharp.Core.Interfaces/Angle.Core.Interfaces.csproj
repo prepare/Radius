@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Angular.Core.Interfaces</RootNamespace>
-    <AssemblyName>Angular.Core.Interfaces</AssemblyName>
+    <AssemblyName>Angle.Core.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -813,15 +813,19 @@
     <Compile Include="..\..\AngleSharp\Network\IResponse.cs">
       <Link>Network\IResponse.cs</Link>
     </Compile>
+    <Compile Include="..\..\AngleSharp\Services\IPseudoElementSelectorFactory.cs">
+      <Link>Services\IPseudoElementSelectorFactory.cs</Link>
+    </Compile>
     <Compile Include="My\TempClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Angular.Core.SubCore1\Angular.Core.SubCore1.csproj">
+    <ProjectReference Include="..\AngleSharp.Core.SubCore1\Angle.Core.SubCore1.csproj">
       <Project>{519a153e-06ec-4e60-9f31-fffa448b76c9}</Project>
-      <Name>Angular.Core.SubCore1</Name>
+      <Name>Angle.Core.SubCore1</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
