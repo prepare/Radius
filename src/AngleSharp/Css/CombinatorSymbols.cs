@@ -2,6 +2,9 @@
 {
     using System;
 
+#if RAD
+    public
+#endif
     /// <summary>
     /// The collection of known CSS selector combinator symbols.
     /// </summary>

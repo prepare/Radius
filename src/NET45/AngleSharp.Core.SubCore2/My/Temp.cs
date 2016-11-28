@@ -8,9 +8,13 @@ using AngleSharp.Parser.Html;
 using AngleSharp.Parser.Css;
 using System.IO;
 using AngleSharp.Dom.Events;
-
+namespace AngleSharp.Dom.Mathml
+{
+    class dummy1 { }
+}
 namespace AngleSharp
 {
+   
     public class BrowsingContext : IBrowsingContext
     {
         IConfiguration config;
@@ -113,7 +117,9 @@ namespace AngleSharp
     }
     public class CssValue
     {
+        public static CssValue Empty = new CssValue();
         public CssValue(object o) { }
+        private CssValue() { }
     }
     public interface CssRule : ICssRule { }
 

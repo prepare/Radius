@@ -2,6 +2,9 @@
 {
     using System;
 
+#if RAD
+    public
+#endif
     /// <summary>
     /// The collection of used keywords and strings.
     /// </summary>

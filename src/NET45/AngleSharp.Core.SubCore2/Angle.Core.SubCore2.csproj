@@ -45,6 +45,9 @@
     <Compile Include="..\..\AngleSharp\Css\PseudoElementNames.cs">
       <Link>Css\PseudoElementNames.cs</Link>
     </Compile>
+    <Compile Include="..\..\AngleSharp\Css\RuleNames.cs">
+      <Link>Css\RuleNames.cs</Link>
+    </Compile>
     <Compile Include="..\..\AngleSharp\Dom\DomException.cs">
       <Link>Dom\DomException.cs</Link>
     </Compile>
@@ -232,6 +235,10 @@
       <Link>Services\IPseudoElementSelectorFactory.cs</Link>
     </Compile>
     <Compile Include="My\Temp.cs" />
+    <Compile Include="My\Temp2.cs" />
+    <Compile Include="My\CssBuilder.cs" />
+    <Compile Include="My\HtmlDomBuilder.cs" />
+    <Compile Include="My\XmlDomBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
