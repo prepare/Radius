@@ -40,23 +40,23 @@
             }
         }
 
-		/// <summary>
-		/// Either creates a fresh selector constructor or gets a (cleaned)
+        /// <summary>
+        /// Either creates a fresh selector constructor or gets a (cleaned)
         /// used one.
-		/// </summary>
-		/// <returns>A selector constructor to use.</returns>
-		public static CssSelectorConstructor NewSelectorConstructor(IAttributeSelectorFactory attributeSelector, IPseudoClassSelectorFactory pseudoClassSelector, IPseudoElementSelectorFactory pseudoElementSelector)
-		{
-			lock (_lock)
-			{
+        /// </summary>
+        /// <returns>A selector constructor to use.</returns>
+        public static CssSelectorConstructor NewSelectorConstructor(IAttributeSelectorFactory attributeSelector, IPseudoClassSelectorFactory pseudoClassSelector, IPseudoElementSelectorFactory pseudoElementSelector)
+        {
+            lock (_lock)
+            {
                 if (_selector.Count == 0)
                 {
                     return new CssSelectorConstructor(attributeSelector, pseudoClassSelector, pseudoElementSelector);
                 }
 
-				return _selector.Pop().Reset(attributeSelector, pseudoClassSelector, pseudoElementSelector);
-			}
-		}
+                return _selector.Pop().Reset(attributeSelector, pseudoClassSelector, pseudoElementSelector);
+            }
+        }
 
         /// <summary>
         /// Either creates a fresh value builder or gets a (cleaned) used one.
@@ -93,23 +93,23 @@
             return result;
         }
 
-		/// <summary>
-		/// Returns the given selector constructor to the pool and gets the
+        /// <summary>
+        /// Returns the given selector constructor to the pool and gets the
         /// constructed selector.
-		/// </summary>
+        /// </summary>
         /// <param name="ctor">The constructor to recycle.</param>
         /// <returns>The Selector that is created in the constructor.</returns>
-		public static ISelector ToPool(this CssSelectorConstructor ctor)
+        public static ISelector ToPool(this CssSelectorConstructor ctor)
         {
             var result = ctor.GetResult();
 
-			lock (_lock)
-			{
-				_selector.Push(ctor);
+            lock (_lock)
+            {
+                _selector.Push(ctor);
             }
 
             return result;
-		}
+        }
 
         /// <summary>
         /// Returns the given value builder to the pool and gets the

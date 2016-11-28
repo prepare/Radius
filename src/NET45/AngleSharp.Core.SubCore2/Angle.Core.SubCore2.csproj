@@ -69,9 +69,6 @@
     <Compile Include="..\..\AngleSharp\Foundation\Pool.cs">
       <Link>Foundation\Pool.cs</Link>
     </Compile>
-    <Compile Include="..\..\AngleSharp\Foundation\Symbols.cs">
-      <Link>Foundation\Symbols.cs</Link>
-    </Compile>
     <Compile Include="..\..\AngleSharp\Html\HtmlEntityService.cs">
       <Link>Html\HtmlEntityService.cs</Link>
     </Compile>

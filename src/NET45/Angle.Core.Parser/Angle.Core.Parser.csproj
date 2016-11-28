@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A7605AD-5822-42F3-A664-31F1DDEC6737}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Angle.Core.Parser</RootNamespace>
+    <AssemblyName>Angle.Core.Parser</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;RAD</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AngleSharp\Extensions\CharExtensions.cs">
+      <Link>Extensions\CharExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Html\NodeFlags.cs">
+      <Link>Html\NodeFlags.cs</Link>
+    </Compile>
+    <Compile Include="My\MyExtensions.cs" />
+    <Compile Include="Parser\BaseTokenizer.cs" />
+    <Compile Include="Parser\Css\CssBuilder.cs" />
+    <Compile Include="Parser\Css\CssCombinator.cs" />
+    <Compile Include="Parser\Css\CssParseError.cs" />
+    <Compile Include="Parser\Css\CssParser.cs" />
+    <Compile Include="Parser\Css\CssParserExtensions.cs" />
+    <Compile Include="Parser\Css\CssParserOptions.cs" />
+    <Compile Include="Parser\Css\CssSelectorConstructor.cs" />
+    <Compile Include="Parser\Css\CssTokenizer.cs" />
+    <Compile Include="Parser\Css\CssTokenType.cs" />
+    <Compile Include="Parser\Css\CssValueBuilder.cs" />
+    <Compile Include="Parser\Css\Tokens\CssColorToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssCommentToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssFunctionToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssKeywordToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssNumberToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssRangeToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssStringToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssUnitToken.cs" />
+    <Compile Include="Parser\Css\Tokens\CssUrlToken.cs" />
+    <Compile Include="Parser\Html\HtmlDomBuilder.cs" />
+    <Compile Include="Parser\Html\HtmlForeignExtensions.cs" />
+    <Compile Include="Parser\Html\HtmlParseException.cs" />
+    <Compile Include="Parser\Html\HtmlParseMode.cs" />
+    <Compile Include="Parser\Html\HtmlParser.cs" />
+    <Compile Include="Parser\Html\HtmlParserExtensions.cs" />
+    <Compile Include="Parser\Html\HtmlParserOptions.cs" />
+    <Compile Include="Parser\Html\HtmlTokenizer.cs" />
+    <Compile Include="Parser\Html\HtmlTokenType.cs" />
+    <Compile Include="Parser\Html\HtmlTreeMode.cs" />
+    <Compile Include="Parser\Html\Tokens\HtmlDoctypeToken.cs" />
+    <Compile Include="Parser\Html\Tokens\HtmlTagToken.cs" />
+    <Compile Include="Parser\Html\Tokens\HtmlToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlCDataToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlCharacterToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlCommentToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlDeclarationToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlDoctypeToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlEndOfFileToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlPIToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlTagToken.cs" />
+    <Compile Include="Parser\Xml\Tokens\XmlToken.cs" />
+    <Compile Include="Parser\Xml\XmlDomBuilder.cs" />
+    <Compile Include="Parser\Xml\XmlParseError.cs" />
+    <Compile Include="Parser\Xml\XmlParseException.cs" />
+    <Compile Include="Parser\Xml\XmlParser.cs" />
+    <Compile Include="Parser\Xml\XmlParserExtensions.cs" />
+    <Compile Include="Parser\Xml\XmlTokenizer.cs" />
+    <Compile Include="Parser\Xml\XmlTokenType.cs" />
+    <Compile Include="Parser\Xml\XmlTreeMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AngleSharp.Core.Interfaces\Angle.Core.Interfaces.csproj">
+      <Project>{2eaf6332-dd48-407b-8023-fe36fd725a39}</Project>
+      <Name>Angle.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AngleSharp.Core.SubCore1\Angle.Core.SubCore1.csproj">
+      <Project>{519a153e-06ec-4e60-9f31-fffa448b76c9}</Project>
+      <Name>Angle.Core.SubCore1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AngleSharp.Core.SubCore2\Angle.Core.SubCore2.csproj">
+      <Project>{31275a65-fb04-40c8-afb7-f659d19a6908}</Project>
+      <Name>Angle.Core.SubCore2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AngleSharp.Core.SubCoreCss\Angle.SubCoreCss.csproj">
+      <Project>{892cdcec-45be-42ed-b9db-aa293ad4cca9}</Project>
+      <Name>Angle.SubCoreCss</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

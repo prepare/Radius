@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;RAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,9 +45,6 @@
     <Compile Include="..\..\AngleSharp\Extensions\CharExtensions.cs">
       <Link>Extensions\CharExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\anglesharp\foundation\Symbols.cs">
-      <Link>Foundation\Symbols.cs</Link>
-    </Compile>
     <Compile Include="My\StringExtensions1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -56,6 +53,9 @@
       <Project>{519a153e-06ec-4e60-9f31-fffa448b76c9}</Project>
       <Name>Angle.Core.SubCore1</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Foundation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
