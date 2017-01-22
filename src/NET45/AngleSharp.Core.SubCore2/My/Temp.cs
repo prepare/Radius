@@ -14,7 +14,7 @@ namespace AngleSharp.Dom.Mathml
 }
 namespace AngleSharp
 {
-   
+
     public class BrowsingContext : IBrowsingContext
     {
         IConfiguration config;
