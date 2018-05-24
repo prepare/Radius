@@ -163,7 +163,8 @@
                 var context = BrowsingContext.New(config);
                 var document = await context.OpenAsync(url);
 
-                Assert.AreEqual("k2=v2; k1=v1", document.Cookie);
+                var cookies = document.Cookie.Split(new[] { ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                CollectionAssert.AreEquivalent(new[] { "k2=v2", "k1=v1" }, cookies);
             }
         }
 
@@ -177,7 +178,8 @@
                 var context = BrowsingContext.New(config);
                 var document = await context.OpenAsync(url);
 
-                Assert.AreEqual("test=baz; k2=v2; k1=v1; foo=bar", document.Cookie);
+                var cookies = document.Cookie.Split(new[] { ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                CollectionAssert.AreEquivalent(new[] { "test=baz", "k2=v2", "k1=v1", "foo=bar" }, cookies);
             }
         }
 
@@ -264,6 +266,40 @@
 
             Assert.AreEqual(1, requestCount);
             Assert.AreEqual(String.Empty, imgCookie);
+        }
+
+        [Test]
+        public async Task CookieWithUTCTimeStampVariant1()
+        {
+            var content = "<!doctype html>";
+            var cookieValue = "fm=0; Expires=Wed, 03 Jan 2018 10:54:24 UTC; Path=/; Domain=.twitter.com; Secure; HTTPOnly";
+            var requestCount = 0;
+            var initial = VirtualResponse.Create(m => m.Content(content).Address("http://www.twitter.com").Header(HeaderNames.SetCookie, cookieValue));
+            var document = await LoadDocumentWithFakeRequesterAndCookie(initial, req =>
+            {
+                var res = VirtualResponse.Create(m => m.Content(String.Empty).Address(req.Address));
+                requestCount++;
+                return res;
+            });
+
+            Assert.AreEqual(0, requestCount);
+        }
+
+        [Test]
+        public async Task CookieWithUTCTimeStampVariant2()
+        {
+            var content = "<!doctype html>";
+            var cookieValue = "ct0=cf2c3d61837dc0513fe9dfa8019a3af8; Expires=Wed, 03 Jan 2018 16:54:34 UTC; Path=/; Domain=.twitter.com; Secure";
+            var requestCount = 0;
+            var initial = VirtualResponse.Create(m => m.Content(content).Address("http://www.twitter.com").Header(HeaderNames.SetCookie, cookieValue));
+            var document = await LoadDocumentWithFakeRequesterAndCookie(initial, req =>
+            {
+                var res = VirtualResponse.Create(m => m.Content(String.Empty).Address(req.Address));
+                requestCount++;
+                return res;
+            });
+
+            Assert.AreEqual(0, requestCount);
         }
 
         [Test]
