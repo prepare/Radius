@@ -1,3 +1,24 @@
+# 0.9.9.2
+
+- Provided `Tokenize` extension method for `TextSource` (#636)
+- Replaced Conditional Weak Table for performance gains (#637)
+- Fixed a bug for non-unicode characters to stop parsing (#590)
+- Fixed weird `iframe` behavior to self-load (#581)
+
+# 0.9.9.1
+
+- Fixed build (#566)
+- Several bugfixes (#587, see: #491, #406, #512, and #544)
+- Memory improvement (#588)
+- Corrected casing (#589)
+- Fixed wrong default for Url ports (#624)
+- Fixed behavior on empty string selectors (#601)
+- Fixed multiple slashes stackoverflow (#613)
+- Fixed parsing with initial comment (#610)
+- Fixed cookie time format handling (#599, #598)
+- Fixed stackoverflow when parsing (#570)
+- Initialize default `Request` content (#567)
+
 # 0.9.9
 
 - Attribute API refinements (#422)
@@ -230,7 +251,7 @@
 - Browsing context available / creation possible
 - Extension methods to `IConfiguration` available
 - More attributes added
-- Namespace changes for the attributes 
+- Namespace changes for the attributes
 - CSS property architecture finalized
 
 # 0.6.1
