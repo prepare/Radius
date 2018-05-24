@@ -1,11 +1,10 @@
-﻿namespace AngleSharp.Dom
+namespace AngleSharp.Dom
 {
     using AngleSharp.Dom.Collections;
     using AngleSharp.Extensions;
     using AngleSharp.Html;
     using System;
     using System.IO;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Represents a node in the generated tree.
@@ -14,8 +13,6 @@
     {
         #region Fields
 
-        static readonly ConditionalWeakTable<Node, Document> Owners = new ConditionalWeakTable<Node, Document>();
-
         readonly NodeType _type;
         readonly String _name;
         readonly NodeFlags _flags;
@@ -23,6 +20,7 @@
         Url _baseUri;
         Node _parent;
         NodeList _children;
+        private Document _owner;
 
         #endregion
 
@@ -30,7 +28,7 @@
 
         internal Node(Document owner, String name, NodeType type = NodeType.Element, NodeFlags flags = NodeFlags.None)
         {
-            Owners.Add(this, owner);
+            _owner = owner;
             _name = name ?? String.Empty;
             _type = type;
             _children = this.CreateChildren();
@@ -61,21 +59,25 @@
                 }
                 else if (_parent != null)
                 {
-                    return _parent.BaseUrl;
+                    foreach (var ancestor in this.Ancestors<Node>())
+                    {
+                        if (ancestor._baseUri != null)
+                        {
+                            return ancestor._baseUri;
+                        }
+                    }
                 }
-                else
-                {
-                    var document = Owner;
 
-                    if (document != null)
-                    {
-                        return document._baseUri ?? document.DocumentUrl;
-                    }
-                    else if (_type == NodeType.Document)
-                    {
-                        document = (Document)this;
-                        return document.DocumentUrl;
-                    }
+                var document = Owner;
+
+                if (document != null)
+                {
+                    return document._baseUri ?? document.DocumentUrl;
+                }
+                else if (_type == NodeType.Document)
+                {
+                    document = (Document)this;
+                    return document.DocumentUrl;
                 }
 
                 return null;
@@ -222,32 +224,27 @@
         {
             get
             {
-                var owner = default(Document);
-
-                if (_type != NodeType.Document)
+                if (_type == NodeType.Document)
                 {
-                    Owners.TryGetValue(this, out owner);
+                    return default(Document);
                 }
 
-                return owner;
+                return _owner;
             }
             set
             {
-                var oldDocument = Owner;
-
-                if (!Object.ReferenceEquals(oldDocument, value))
+                foreach (var descendentAndSelf in this.DescendentsAndSelf<Node>())
                 {
-                    Owners.Remove(this);
-                    Owners.Add(this, value);
+                    var oldDocument = descendentAndSelf.Owner;
 
-                    for (var i = 0; i < _children.Length; i++)
+                    if (!Object.ReferenceEquals(oldDocument, value))
                     {
-                        _children[i].Owner = value;
-                    }
+                        descendentAndSelf._owner = value;
 
-                    if (oldDocument != null)
-                    {
-                        NodeIsAdopted(oldDocument);
+                        if (oldDocument != null)
+                        {
+                            NodeIsAdopted(oldDocument);
+                        }
                     }
                 }
             }
