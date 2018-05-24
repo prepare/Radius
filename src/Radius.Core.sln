@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp.Core", "AngleSharp\AngleSharp.Core.csproj", "{91F78C48-287E-41B5-9E49-44D6E1E31290}"
 EndProject
@@ -116,5 +116,8 @@ Global
 		{892CDCEC-45BE-42ED-B9DB-AA293AD4CCA9} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
 		{31275A65-FB04-40C8-AFB7-F659D19A6908} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
 		{51F7221D-B187-45F9-8514-DEC73DCB9204} = {01215B03-1B64-49F5-84A9-4835D2F577DA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AD1A9AB-1C85-439F-8139-D8A21FE105A9}
 	EndGlobalSection
 EndGlobal

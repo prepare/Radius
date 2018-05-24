@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AngleSharp.Core</RootNamespace>
     <AssemblyName>AngleSharp.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -84,6 +84,9 @@
     </Compile>
     <Compile Include="..\..\AngleSharp\Commands\ICommand.cs">
       <Link>Commands\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Common\AttachedProperty.cs">
+      <Link>Common\AttachedProperty.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Configuration.cs">
       <Link>Configuration.cs</Link>
@@ -300,9 +303,6 @@
     </Compile>
     <Compile Include="..\..\AngleSharp\Dom\Attr.cs">
       <Link>Dom\Attr.cs</Link>
-    </Compile>
-    <Compile Include="..\..\AngleSharp\Dom\AttrChangedCallback.cs">
-      <Link>Dom\AttrChangedCallback.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Dom\CharacterData.cs">
       <Link>Dom\CharacterData.cs</Link>
@@ -1746,6 +1746,12 @@
     </Compile>
     <Compile Include="..\..\AngleSharp\Dom\Html\ValidityState.cs">
       <Link>Dom\Html\ValidityState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\IAttributeObserver.cs">
+      <Link>Dom\IAttributeObserver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AngleSharp\Dom\Internal\DefaultAttributeObserver.cs">
+      <Link>Dom\Internal\DefaultAttributeObserver.cs</Link>
     </Compile>
     <Compile Include="..\..\AngleSharp\Dom\Io\FileList.cs">
       <Link>Dom\Io\FileList.cs</Link>
