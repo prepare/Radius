@@ -1,22 +1,23 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
 
     /// <summary>
     /// Represents the distance transformation.
     /// </summary>
-    public sealed class PerspectiveTransform : ITransform
+    class PerspectiveTransform : ITransform, ICssFunctionValue
     {
         #region Fields
 
-        private readonly Length _distance;
+        private readonly ICssValue _distance;
 
         #endregion
 
         #region ctor
 
-        internal PerspectiveTransform(Length distance)
+        internal PerspectiveTransform(ICssValue distance)
         {
             _distance = distance;
         }
@@ -26,17 +27,33 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name
+        {
+            get { return FunctionNames.Perspective; }
+        }
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments
+        {
+            get { return new [] { _distance }; }
+        }
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get { return Name.CssFunction(_distance.CssText); }
         }
 
         /// <summary>
         /// Gets the distance from the origin.
         /// </summary>
-        public Length Distance
+        public ICssValue Distance
         {
             get { return _distance; }
         }
@@ -46,21 +63,13 @@
         #region Methods
 
         /// <summary>
-        /// Serializes to the perspective function.
-        /// </summary>
-        public override String ToString()
-        {
-            var fn = FunctionNames.Perspective;
-            return fn.CssFunction(_distance.ToString());
-        }
-
-        /// <summary>
         /// Computes the matrix for the given transformation.
         /// </summary>
         /// <returns>The transformation matrix representation.</returns>
         public TransformMatrix ComputeMatrix()
         {
-            return new TransformMatrix(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, -1f / _distance.ToPixel());
+            var distance = _distance as Length? ?? Length.Zero;
+            return new TransformMatrix(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0 / distance.ToPixel());
         }
 
         #endregion

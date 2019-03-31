@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css;
     using AngleSharp.Css.Dom;
@@ -11,7 +11,7 @@
     /// Represents a color value.
     /// </summary>
     [StructLayout(LayoutKind.Explicit, Pack = 1, CharSet = CharSet.Unicode)]
-    public struct Color : IEquatable<Color>, IComparable<Color>, ICssValue
+    struct Color : IEquatable<Color>, IComparable<Color>, ICssValue
     {
         #region Basic colors
 
@@ -127,7 +127,7 @@
         /// <param name="b">The value for blue [0,255].</param>
         /// <param name="a">The value for alpha [0,1].</param>
         /// <returns>The CSS color value.</returns>
-        public static Color FromRgba(Byte r, Byte g, Byte b, Single a)
+        public static Color FromRgba(Byte r, Byte g, Byte b, Double a)
         {
             return new Color(r, g, b, Normalize(a));
         }
@@ -140,7 +140,7 @@
         /// <param name="b">The value for blue [0,1].</param>
         /// <param name="a">The value for alpha [0,1].</param>
         /// <returns>The CSS color value.</returns>
-        public static Color FromRgba(Single r, Single g, Single b, Single a)
+        public static Color FromRgba(Double r, Double g, Double b, Double a)
         {
             return new Color(Normalize(r), Normalize(g), Normalize(b), Normalize(a));
         }
@@ -151,7 +151,7 @@
         /// <param name="number">The value for each component [0,255].</param>
         /// <param name="alpha">The value for alpha [0,1].</param>
         /// <returns>The CSS color value.</returns>
-        public static Color FromGray(Byte number, Single alpha = 1f)
+        public static Color FromGray(Byte number, Double alpha = 1.0)
         {
             return new Color(number, number, number, Normalize(alpha));
         }
@@ -162,7 +162,7 @@
         /// <param name="value">The value for each component [0,1].</param>
         /// <param name="alpha">The value for alpha [0,1].</param>
         /// <returns>The CSS color value.</returns>
-        public static Color FromGray(Single value, Single alpha = 1f)
+        public static Color FromGray(Double value, Double alpha = 1.0)
         {
             return FromGray(Normalize(value), alpha);
         }
@@ -303,9 +303,9 @@
         /// <param name="s">The saturation [0,1].</param>
         /// <param name="l">The light value [0,1].</param>
         /// <returns>The CSS color.</returns>
-        public static Color FromHsl(Single h, Single s, Single l)
+        public static Color FromHsl(Double h, Double s, Double l)
         {
-            return FromHsla(h, s, l, 1f);
+            return FromHsla(h, s, l, 1.0);
         }
 
         /// <summary>
@@ -316,15 +316,15 @@
         /// <param name="l">The light value [0,1].</param>
         /// <param name="alpha">The alpha value [0,1].</param>
         /// <returns>The CSS color.</returns>
-        public static Color FromHsla(Single h, Single s, Single l, Single alpha)
+        public static Color FromHsla(Double h, Double s, Double l, Double alpha)
         {
-            const Single third = 1f / 3f;
+            const Double third = 1.0 / 3.0;
 
-            var m2 = l <= 0.5f ? (l * (s + 1f)) : (l + s - l * s);
-            var m1 = 2f * l - m2;
-            var r = Convert(HueToRgb(m1, m2, h + third));
-            var g = Convert(HueToRgb(m1, m2, h));
-            var b = Convert(HueToRgb(m1, m2, h - third));
+            var m2 = l < 0.5 ? (l * (s + 1.0)) : (l + s - l * s);
+            var m1 = 2.0 * l - m2;
+            var r = Normalize(HueToRgb(m1, m2, h + third));
+            var g = Normalize(HueToRgb(m1, m2, h));
+            var b = Normalize(HueToRgb(m1, m2, h - third));
             return new Color(r, g, b, Normalize(alpha));
         }
 
@@ -335,7 +335,7 @@
         /// <param name="w">The whiteness [0,1].</param>
         /// <param name="b">The blackness [0,1].</param>
         /// <returns>The CSS color.</returns>
-        public static Color FromHwb(Single h, Single w, Single b)
+        public static Color FromHwb(Double h, Double w, Double b)
         {
             return FromHwba(h, w, b, 1f);
         }
@@ -348,26 +348,28 @@
         /// <param name="b">The blackness [0,1].</param>
         /// <param name="alpha">The alpha value [0,1].</param>
         /// <returns>The CSS color.</returns>
-        public static Color FromHwba(Single h, Single w, Single b, Single alpha)
+        public static Color FromHwba(Double h, Double w, Double b, Double alpha)
         {
-            var ratio = 1f / (w + b);
-            var red = 0f;
-            var green = 0f;
-            var blue = 0f;
+            var ratio = 1.0 / (w + b);
+            var red = 0.0;
+            var green = 0.0;
+            var blue = 0.0;
 
-            if (ratio < 1f) 
+            if (ratio < 1.0) 
             {
                 w *= ratio;
                 b *= ratio;
             }
 
-            var p = (Int32)(6 * h);
-            var f = 6 * h - p;
+            var p = (Int32)(6.0 * h);
+            var f = 6.0 * h - p;
 
             if ((p & 0x01) != 0)
-                f = 1 - f;
+            {
+                f = 1.0 - f;
+            }
 
-            var v = 1 - b;
+            var v = 1.0 - b;
             var n = w + f * (v - w);
 
             switch (p) 
@@ -394,7 +396,29 @@
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get
+            {
+                if (Equals(Color.CurrentColor))
+                {
+                    return CssKeywords.CurrentColor;
+                }
+                else if (Equals(Color.InvertedColor))
+                {
+                    return CssKeywords.Invert;
+                }
+                else
+                {
+                    var fn = FunctionNames.Rgba;
+                    var args = String.Join(", ", new[]
+                    {
+                        R.ToString(CultureInfo.InvariantCulture),
+                        G.ToString(CultureInfo.InvariantCulture),
+                        B.ToString(CultureInfo.InvariantCulture),
+                        Alpha.ToString(CultureInfo.InvariantCulture)
+                    });
+                    return fn.CssFunction(args);
+                }
+            }
         }
 
         /// <summary>
@@ -517,34 +541,6 @@
         #region Methods
 
         /// <summary>
-        /// Returns a string representing the color in ARGB hex.
-        /// </summary>
-        /// <returns>The ARGB string.</returns>
-        public override String ToString()
-        {
-            if (Equals(Color.CurrentColor))
-            {
-                return CssKeywords.CurrentColor;
-            }
-            else if (Equals(Color.InvertedColor))
-            {
-                return CssKeywords.Invert;
-            }
-            else
-            { 
-                var fn = FunctionNames.Rgba;
-                var args = String.Join(", ", new[]
-                {
-                    R.ToString(CultureInfo.InvariantCulture),
-                    G.ToString(CultureInfo.InvariantCulture),
-                    B.ToString(CultureInfo.InvariantCulture),
-                    Alpha.ToString(CultureInfo.InvariantCulture)
-                });
-                return fn.CssFunction(args);
-            }
-        }
-
-        /// <summary>
         /// Mixes two colors using alpha compositing as described here:
         /// http://en.wikipedia.org/wiki/Alpha_compositing
         /// </summary>
@@ -577,41 +573,33 @@
 
         #region Helpers
 
-        private static Byte Normalize(Single value)
+        private static Byte Normalize(Double value)
         {
-            return (Byte)Math.Max(Math.Min(Math.Round(255 * value), 255), 0);
+            return (Byte)Math.Max(Math.Min(Math.Truncate(256.0 * value), 255.0), 0.0);
         }
 
-        private static Byte Convert(Single value)
+        private static Double HueToRgb(Double m1, Double m2, Double h)
         {
-            return (Byte)Math.Round(255f * value);
-        }
-
-        private static Single HueToRgb(Single m1, Single m2, Single h)
-        {
-            const Single oneSixth = 1f / 6f;
-            const Single twoThird = 2f / 3f;
-
-            if (h < 0f)
+            if (h < 0.0)
             {
-                h += 1f;
+                h += 1.0;
             }
-            else if (h > 1f)
+            else if (h > 1.0)
             {
-                h -= 1f;
+                h -= 1.0;
             }
 
-            if (h < oneSixth)
+            if (6.0 * h < 1.0)
             {
-                return m1 + (m2 - m1) * h * 6f;
+                return m1 + (m2 - m1) * h * 6.0;
             }
-            else if (h < 0.5)
+            else if (2.0 * h < 1.0)
             {
                 return m2;
             }
-            else if (h < twoThird)
+            else if (3.0 * h < 2.0)
             {
-                return m1 + (m2 - m1) * (twoThird - h) * 6f;
+                return m1 + (m2 - m1) * (4.0 - 6.0 * h);
             }
 
             return m1;

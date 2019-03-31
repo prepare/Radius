@@ -1,18 +1,17 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
-    using AngleSharp.Css.Extensions;
     using System;
     using System.Globalization;
 
     /// <summary>
     /// Represents a resolution value.
     /// </summary>
-    public struct Resolution : IEquatable<Resolution>, IComparable<Resolution>, ICssValue
+    struct Resolution : IEquatable<Resolution>, IComparable<Resolution>, ICssValue
     {
         #region Fields
 
-        private readonly Single _value;
+        private readonly Double _value;
         private readonly Unit _unit;
 
         #endregion
@@ -24,7 +23,7 @@
         /// </summary>
         /// <param name="value">The value of the resolution.</param>
         /// <param name="unit">The unit of the resolution.</param>
-        public Resolution(Single value, Unit unit)
+        public Resolution(Double value, Unit unit)
         {
             _value = value;
             _unit = unit;
@@ -39,13 +38,13 @@
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get { return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString); }
         }
 
         /// <summary>
         /// Gets the value of resolution.
         /// </summary>
-        public Single Value
+        public Double Value
         {
             get { return _value; }
         }
@@ -87,15 +86,6 @@
         #region Methods
 
         /// <summary>
-        /// Returns a string representing the resolution.
-        /// </summary>
-        /// <returns>The unit string.</returns>
-        public override String ToString()
-        {
-            return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString);
-        }
-
-        /// <summary>
         /// Tries to convert the given string to a Resolution.
         /// </summary>
         /// <param name="s">The string to convert.</param>
@@ -103,7 +93,7 @@
         /// <returns>True if successful, otherwise false.</returns>
         public static Boolean TryParse(String s, out Resolution result)
         {
-            var value = default(Single);
+            var value = default(Double);
             var unit = GetUnit(s.CssUnit(out value));
 
             if (unit != Unit.None)
@@ -136,15 +126,15 @@
         /// Converts the resolution to a per pixel density.
         /// </summary>
         /// <returns>The density in dots per pixels.</returns>
-        public Single ToDotsPerPixel()
+        public Double ToDotsPerPixel()
         {
             if (_unit == Unit.Dpi)
             {
-                return _value / 96f;
+                return _value / 96.0;
             }
             else if (_unit == Unit.Dpcm)
             {
-                return _value * 127f / (50f * 96f);
+                return _value * 127.0 / (50.0 * 96.0);
             }
 
             return _value;
@@ -155,17 +145,17 @@
         /// </summary>
         /// <param name="unit">The unit to convert to.</param>
         /// <returns>The density in the given unit.</returns>
-        public Single To(Unit unit)
+        public Double To(Unit unit)
         {
             var value = ToDotsPerPixel();
 
             if (unit == Unit.Dpi)
             {
-                return value * 96f;
+                return value * 96.0;
             }
             else if (unit == Unit.Dpcm)
             {
-                return value * 50f * 96f / 127f;
+                return value * 50.0 * 96.0 / 127.0;
             }
 
             return value;

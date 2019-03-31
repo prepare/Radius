@@ -1,8 +1,9 @@
-﻿namespace AngleSharp.Css.Extensions
+namespace AngleSharp.Css.Extensions
 {
     using AngleSharp.Css.Dom;
     using AngleSharp.Dom;
     using AngleSharp.Html.Dom;
+    using AngleSharp.Svg.Dom;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -37,7 +38,8 @@
         /// <returns>The style declaration containing all the declarations.</returns>
         public static ICssStyleDeclaration ComputeDeclarations(this StyleCollection rules, IElement element, String pseudoSelector = null)
         {
-            var computedStyle = new CssStyleDeclaration();
+            var computedStyle = new CssStyleDeclaration(element.Owner?.Context);
+            var nodes = element.GetAncestors().OfType<IElement>();
 
             if (!String.IsNullOrEmpty(pseudoSelector))
             {
@@ -50,19 +52,10 @@
             }
 
             computedStyle.SetDeclarations(rules.ComputeCascadedStyle(element));
-            var htmlElement = element as IHtmlElement;
-
-            if (htmlElement != null)
-            {
-                computedStyle.SetDeclarations(htmlElement.GetStyle());
-            }
-
-            var nodes = element.GetAncestors().OfType<IElement>();
 
             foreach (var node in nodes)
             {
-                var style = rules.ComputeCascadedStyle(node);
-                computedStyle.UpdateDeclarations(style);
+                computedStyle.UpdateDeclarations(rules.ComputeCascadedStyle(node));
             }
 
             return computedStyle;
@@ -78,13 +71,18 @@
         /// <returns>Returns the cascaded read-only style declaration.</returns>
         public static ICssStyleDeclaration ComputeCascadedStyle(this StyleCollection styleCollection, IElement element)
         {
-            var computedStyle = new CssStyleDeclaration();
+            var computedStyle = new CssStyleDeclaration(element.Owner?.Context);
             var rules = styleCollection.SortBySpecificity(element);
 
             foreach (var rule in rules)
             {
                 var inlineStyle = rule.Style;
                 computedStyle.SetDeclarations(inlineStyle);
+            }
+
+            if (element is IHtmlElement || element is ISvgElement)
+            {
+                computedStyle.SetDeclarations(element.GetStyle());
             }
 
             return computedStyle;

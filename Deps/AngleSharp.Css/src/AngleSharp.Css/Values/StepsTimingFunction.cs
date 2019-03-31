@@ -1,13 +1,16 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Converters;
+    using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Represents a steps timing-function object.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function
     /// </summary>
-    public sealed class StepsTimingFunction : ITimingFunction
+    class StepsTimingFunction : ITimingFunction
     {
         #region Fields
 
@@ -36,11 +39,53 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name
+        {
+            get { return FunctionNames.Steps; }
+        }
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments
+        {
+            get
+            {
+                var args = new List<ICssValue>();
+                args.Add(new Length(_intervals, Length.Unit.None));
+
+                if (_start)
+                {
+                    args.Add(new Identifier(CssKeywords.Start));
+                }
+
+                return args.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get
+            {
+                if (_intervals != 1)
+                {
+                    var fn = FunctionNames.Steps;
+                    return Name.CssFunction(Arguments.Join(", "));
+                }
+                else if (_start)
+                {
+                    return CssKeywords.StepStart;
+                }
+                else
+                {
+                    return CssKeywords.StepEnd;
+                }
+            }
         }
 
         /// <summary>
@@ -57,37 +102,6 @@
         public Boolean IsStart
         {
             get { return _start; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Serializes to a string.
-        /// </summary>
-        public override String ToString()
-        {
-            if (_intervals != 1)
-            {
-                var fn = FunctionNames.Steps;
-                var args = _intervals.ToString();
-
-                if (_start)
-                {
-                    args = String.Concat(args, ", ", CssKeywords.Start);
-                }
-
-                return fn.CssFunction(args);
-            }
-            else if (_start)
-            {
-                return CssKeywords.StepStart;
-            }
-            else
-            {
-                return CssKeywords.StepEnd;
-            }
         }
 
         #endregion

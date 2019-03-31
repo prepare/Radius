@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Dom
+namespace AngleSharp.Dom
 {
     using AngleSharp.Attributes;
     using AngleSharp.Css.Dom;
@@ -15,7 +15,8 @@
         /// Creates a new MediaQueryList object representing the parsed results
         /// of the specified media query string.
         /// </summary>
-        /// <param name="media">The query string.</param>
+        /// <param name="window">The window to extend with the functionality.</param>
+        /// <param name="mediaText">The query string.</param>
         /// <returns>The MediaQueryList instance.</returns>
         [DomName("matchMedia")]
         public static IMediaQueryList MatchMedia(this IWindow window, String mediaText)
@@ -25,8 +26,15 @@
             return new CssMediaQueryList(window, media);
         }
 
+        /// <summary>
+        /// Gets the pseudo elements of the given element by their type.
+        /// </summary>
+        /// <param name="window">The window to extend with the functionality.</param>
+        /// <param name="element">The element to get the pseudo elements from.</param>
+        /// <param name="type">The type of pseudo elements to get, if any.</param>
+        /// <returns>The list of pseudo elements matching the query.</returns>
         [DomName("getPseudoElements")]
-        public static ICssPseudoElementList GetPseudoElements(this IWindow window, IElement element, String type)
+        public static ICssPseudoElementList GetPseudoElements(this IWindow window, IElement element, String type = null)
         {
             throw new NotImplementedException();
         }
@@ -36,6 +44,7 @@
         /// applying the active stylesheets and resolving any basic computation
         /// those values may contain.
         /// </summary>
+        /// <param name="window">The window to extend with the functionality.</param>
         /// <param name="element">The element to compute the style for.</param>
         /// <param name="pseudo">The optional pseudo selector to use.</param>
         /// <returns>The style declaration describing the element.</returns>
@@ -46,6 +55,13 @@
             return styleCollection.ComputeDeclarations(element, pseudo);
         }
 
+        /// <summary>
+        /// Computes the element's default style. This ignores any transitions or animations.
+        /// Presentational hints such as bgColor are also ignored, as well as inline styles.
+        /// </summary>
+        /// <param name="window">The window to extend with the functionality.</param>
+        /// <param name="element">The element to compute the style for.</param>
+        /// <returns>The style declaration describing the element.</returns>
         [DomName("computeDefaultStyle")]
         public static ICssStyleDeclaration ComputeDefaultStyle(this IWindow window, IElement element)
         {
@@ -57,6 +73,14 @@
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Computes the element's raw style. This first computes the cascaded style and then
+        /// replaces the relative values with the absolute ones taken from the current device
+        /// info.
+        /// </summary>
+        /// <param name="window">The window to extend with the functionality.</param>
+        /// <param name="element">The element to compute the style for.</param>
+        /// <returns>The style declaration describing the element.</returns>
         [DomName("computeRawStyle")]
         public static ICssStyleDeclaration ComputeRawStyle(this IWindow window, IElement element)
         {
@@ -64,14 +88,6 @@
             // Places current device info
             // Replaces the relative values with absolute ones
             // --> computed
-            throw new NotImplementedException();
-        }
-
-        [DomName("computeUsedStyle")]
-        public static ICssStyleDeclaration ComputeUsedStyle(this IWindow window, IElement element)
-        {
-            // Is this somewhere implemented ? I don't know what that should be.
-            // --> used (?)
             throw new NotImplementedException();
         }
     }

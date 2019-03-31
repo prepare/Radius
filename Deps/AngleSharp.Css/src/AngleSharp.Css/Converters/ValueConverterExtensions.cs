@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css.Converters
+namespace AngleSharp.Css.Converters
 {
     using AngleSharp.Css.Dom;
     using AngleSharp.Css.Parser;
@@ -15,14 +15,21 @@
         {
             var source = new StringSource(value);
             source.SkipSpacesAndComments();
-            var result = converter.Convert(source);
-            source.SkipSpacesAndComments();
-            return source.IsDone ? result : null;
+            var varRefs = source.ParseVars();
+
+            if (varRefs == null)
+            {
+                var result = converter.Convert(source);
+                source.SkipSpacesAndComments();
+                return source.IsDone ? result : null;
+            }
+
+            return varRefs;
         }
 
-        public static IValueConverter Many(this IValueConverter converter, Int32 min = 1, Int32 max = UInt16.MaxValue)
+        public static IValueConverter Many(this IValueConverter converter, Int32 min = 1, Int32 max = UInt16.MaxValue, String separator = null)
         {
-            return new OneOrMoreValueConverter(converter, min, max);
+            return new OneOrMoreValueConverter(converter, min, max, separator);
         }
 
         public static IValueConverter FromList(this IValueConverter converter)
@@ -40,6 +47,24 @@
             return new PeriodicValueConverter(converter);
         }
 
+        public static IValueConverter Exclusive(this IValueConverter converter)
+        {
+            return new ClassValueConverter<ICssValue>(source =>
+            {
+                var pos = source.Index;
+                var result = converter.Convert(source);
+                source.SkipSpacesAndComments();
+
+                if (result != null && !source.IsDone)
+                {
+                    source.BackTo(pos);
+                    return null;
+                }
+
+                return result;
+            });
+        }
+
         public static IValueConverter Option(this IValueConverter converter)
         {
             return new OptionValueConverter<Object>(converter, null);
@@ -48,11 +73,6 @@
         public static IValueConverter Option<T>(this IValueConverter converter, T defaultValue)
         {
             return new OptionValueConverter<T>(converter, defaultValue);
-        }
-
-        public static IValueConverter For(this IValueConverter converter, params String[] labels)
-        {
-            return converter;
         }
 
         public static String Join(this ICssValue[] values, String separator)

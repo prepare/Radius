@@ -1,18 +1,17 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
-    using AngleSharp.Css.Extensions;
     using System;
     using System.Globalization;
 
     /// <summary>
     /// Represents a time value.
     /// </summary>
-    public struct Frequency : IEquatable<Frequency>, IComparable<Frequency>, ICssValue
+    struct Frequency : IEquatable<Frequency>, IComparable<Frequency>, ICssValue
     {
         #region Fields
 
-        private readonly Single _value;
+        private readonly Double _value;
         private readonly Unit _unit;
 
         #endregion
@@ -24,7 +23,7 @@
         /// </summary>
         /// <param name="value">The value of the frequency.</param>
         /// <param name="unit">The unit of the frequency.</param>
-        public Frequency(Single value, Unit unit)
+        public Frequency(Double value, Unit unit)
         {
             _value = value;
             _unit = unit;
@@ -39,13 +38,13 @@
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get { return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString); }
         }
 
         /// <summary>
         /// Gets the value of frequency.
         /// </summary>
-        public Single Value
+        public Double Value
         {
             get { return _value; }
         }
@@ -132,15 +131,6 @@
         #region Methods
 
         /// <summary>
-        /// Returns a string representing the frequency.
-        /// </summary>
-        /// <returns>The unit string.</returns>
-        public override String ToString()
-        {
-            return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString);
-        }
-
-        /// <summary>
         /// Tries to convert the given string to a Frequency.
         /// </summary>
         /// <param name="s">The string to convert.</param>
@@ -148,7 +138,7 @@
         /// <returns>True if successful, otherwise false.</returns>
         public static Boolean TryParse(String s, out Frequency result)
         {
-            var value = default(Single);
+            var value = default(Double);
             var unit = GetUnit(s.CssUnit(out value));
 
             if (unit != Unit.None)
@@ -180,9 +170,9 @@
         /// Converts the value to Hz.
         /// </summary>
         /// <returns>The value in Hz.</returns>
-        public Single ToHertz()
+        public Double ToHertz()
         {
-            return _unit == Unit.Khz ? _value * 1000f : _value;
+            return _unit == Unit.Khz ? _value * 1000.0 : _value;
         }
 
         /// <summary>

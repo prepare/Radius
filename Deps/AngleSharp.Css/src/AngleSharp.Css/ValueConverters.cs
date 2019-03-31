@@ -1,9 +1,10 @@
-﻿namespace AngleSharp.Css
+namespace AngleSharp.Css
 {
     using AngleSharp.Css.Converters;
     using AngleSharp.Css.Dom;
     using AngleSharp.Css.Parser;
     using AngleSharp.Css.Values;
+    using AngleSharp.Text;
     using System;
 
     /// <summary>
@@ -11,6 +12,42 @@
     /// </summary>
     static class ValueConverters
     {
+        #region Misc
+
+        /// <summary>
+        /// Creates an or converter for the given converters.
+        /// </summary>
+        public static IValueConverter Or(params IValueConverter[] converters) => new OrValueConverter(converters);
+
+        public static IValueConverter SlashSeparated(IValueConverter converter) => new SeparatorConverter(converter, Symbols.Solidus);
+
+        /// <summary>
+        /// Creates a converter for the initial keyword with the given value.
+        /// </summary>
+        public static IValueConverter AssignInitial<T>(T value) => new StandardValueConverter<T>(value);
+
+        /// <summary>
+        /// Creates a converter for the initial keyword with no value.
+        /// </summary>
+        public static IValueConverter AssignInitial() => AssignInitial<Object>(null);
+
+        /// <summary>
+        /// Creates a converter for values containing (potentially multiple, at least one) var references.
+        /// </summary>
+        public static IValueConverter AssignReferences() => FromParser(FunctionParser.ParseVars);
+
+        /// <summary>
+        /// Creates a new converter by assigning the given identifier to a fixed result.
+        /// </summary>
+        public static IValueConverter Assign<T>(String identifier, T result) => new IdentifierValueConverter<T>(identifier, result);
+
+        /// <summary>
+        /// Creates a new boolean converter that toggles between the two given keywords.
+        /// </summary>
+        public static IValueConverter Toggle(String on, String off) => Or(Assign(on, true), Assign(off, false));
+
+        #endregion
+
         #region Elementary
 
         /// <summary>
@@ -29,39 +66,60 @@
         public static IValueConverter Auto = new IdentifierValueConverter<Length>(CssKeywords.Auto, Length.Auto);
 
         /// <summary>
+        /// Represents a converter for the content keyword with no value.
+        /// </summary>
+        public static IValueConverter Content = new IdentifierValueConverter<Length>(CssKeywords.Content, Length.Content);
+
+        /// <summary>
         /// Represents a length object with line-width additions.
         /// http://dev.w3.org/csswg/css-backgrounds/#line-width
         /// </summary>
-        public static readonly IValueConverter LineWidthConverter = new StructValueConverter<Length>(UnitParser.ParseLineWidth);
+        public static readonly IValueConverter LineWidthConverter = FromParser(UnitParser.ParseLineWidth);
+
+        /// <summary>
+        /// Represents a calculated number.
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/calc
+        /// </summary>
+        public static readonly IValueConverter CalcConverter = FromParser(CalcParser.ParseCalc);
 
         /// <summary>
         /// Represents a length object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/length
         /// </summary>
-        public static readonly IValueConverter LengthConverter = new StructValueConverter<Length>(UnitParser.ParseLength);
+        public static readonly IValueConverter OnlyLengthConverter = new StructValueConverter<Length>(UnitParser.ParseLength);
 
         /// <summary>
         /// Represents a resolution object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/resolution
         /// </summary>
-        public static readonly IValueConverter ResolutionConverter = new StructValueConverter<Resolution>(UnitParser.ParseResolution);
+        public static readonly IValueConverter OnlyResolutionConverter = new StructValueConverter<Resolution>(UnitParser.ParseResolution);
 
         /// <summary>
         /// Represents a time object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/time
         /// </summary>
-        public static readonly IValueConverter TimeConverter = new StructValueConverter<Time>(UnitParser.ParseTime);
+        public static readonly IValueConverter OnlyTimeConverter = new StructValueConverter<Time>(UnitParser.ParseTime);
+
+        /// <summary>
+        /// Represents a distance object (either Length or Percent).
+        /// </summary>
+        public static readonly IValueConverter OnlyLengthOrPercentConverter = new StructValueConverter<Length>(UnitParser.ParseDistance);
+
+        /// <summary>
+        /// Represents a string object.
+        /// </summary>
+        public static readonly IValueConverter StringConverter = FromParser(FromString(StringParser.ParseString));
 
         /// <summary>
         /// Represents an URL object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/uri
         /// </summary>
-        public static readonly IValueConverter UrlConverter = new ClassValueConverter<UrlReference>(UriParser.ParseUri);
+        public static readonly IValueConverter UrlConverter = FromParser(CssUriParser.ParseUri);
 
         /// <summary>
         /// Represents many string objects, but always divisible by 2 (open-close quotes).
         /// </summary>
-        public static readonly IValueConverter QuotesConverter = new ClassValueConverter<Quotes>(CompoundParser.ParseQuotes);
+        public static readonly IValueConverter QuotesConverter = FromParser(CompoundParser.ParseQuotes);
 
         /// <summary>
         /// Represents an identifier object.
@@ -79,7 +137,7 @@
         /// Represents an integer object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/integer
         /// </summary>
-        public static readonly IValueConverter IntegerConverter = new StructValueConverter<Length>(FromInteger(NumberParser.ParseInteger));
+        public static readonly IValueConverter OnlyIntegerConverter = new StructValueConverter<Length>(FromInteger(NumberParser.ParseInteger));
 
         /// <summary>
         /// Represents an integer object that is zero or greater.
@@ -105,7 +163,37 @@
         /// Represents a number object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/number
         /// </summary>
-        public static readonly IValueConverter NumberConverter = new StructValueConverter<Length>(FromNumber(NumberParser.ParseNumber));
+        public static readonly IValueConverter OnlyNumberConverter = new StructValueConverter<Length>(FromNumber(NumberParser.ParseNumber));
+
+        /// <summary>
+        /// Represents a (calculated) number object.
+        /// </summary>
+        public static readonly IValueConverter NumberConverter = Or(OnlyNumberConverter, CalcConverter);
+
+        /// <summary>
+        /// Represents a (calculated) length object.
+        /// </summary>
+        public static readonly IValueConverter LengthConverter = Or(OnlyLengthConverter, CalcConverter);
+
+        /// <summary>
+        /// Represents a (calculated) resolution object.
+        /// </summary>
+        public static readonly IValueConverter ResolutionConverter = Or(OnlyResolutionConverter, CalcConverter);
+
+        /// <summary>
+        /// Represents a (calculated) time object.
+        /// </summary>
+        public static readonly IValueConverter TimeConverter = Or(OnlyTimeConverter, CalcConverter);
+
+        /// <summary>
+        /// Represents an (calculated) integer object.
+        /// </summary>
+        public static readonly IValueConverter IntegerConverter = Or(OnlyIntegerConverter, CalcConverter);
+
+        /// <summary>
+        /// Represents a (calculated) distance object (either Length or Percent).
+        /// </summary>
+        public static readonly IValueConverter LengthOrPercentConverter = Or(OnlyLengthOrPercentConverter, CalcConverter);
 
         /// <summary>
         /// Represents an number object that is zero or greater.
@@ -125,9 +213,21 @@
         public static readonly IValueConverter PointConverter = new StructValueConverter<Point>(PointParser.ParsePoint);
 
         /// <summary>
-        /// Represents a distance object (either Length or Percent).
+        /// Represents a Point3 object.
         /// </summary>
-        public static readonly IValueConverter LengthOrPercentConverter = new StructValueConverter<Length>(UnitParser.ParseDistance);
+        public static readonly IValueConverter Point3Converter = FromParser(PointParser.ParsePoint3);
+
+        /// <summary>
+        /// Represents a position object.
+        /// http://www.w3.org/TR/css3-background/#ltpositiongt
+        /// </summary>
+        public static readonly IValueConverter PointXConverter = FromParser(PointParser.ParsePointX);
+
+        /// <summary>
+        /// Represents a position object.
+        /// http://www.w3.org/TR/css3-background/#ltpositiongt
+        /// </summary>
+        public static readonly IValueConverter PointYConverter = FromParser(PointParser.ParsePointY);
 
         #endregion
 
@@ -137,7 +237,7 @@
         /// Represents a shape object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/shape
         /// </summary>
-        public static readonly IValueConverter ShapeConverter = new ClassValueConverter<Shape>(ShapeParser.ParseShape);
+        public static readonly IValueConverter ShapeConverter = FromParser(ShapeParser.ParseShape);
 
         #endregion
 
@@ -157,6 +257,11 @@
         /// Represents a converter for the BackgroundAttachment enumeration.
         /// </summary>
         public static readonly IValueConverter BackgroundAttachmentConverter = Map.BackgroundAttachments.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the BackgroundRepeat enumeration.
+        /// </summary>
+        public static readonly IValueConverter BackgroundRepeatConverter = Map.BackgroundRepeats.ToConverter();
 
         /// <summary>
         /// Represents a converter for the BoxModel enumeration.
@@ -179,7 +284,7 @@
         public static readonly IValueConverter TextDecorationStyleConverter = Map.TextDecorationStyles.ToConverter();
 
         /// <summary>
-        /// Represents a converter for the TextDecorationLine enumeration, 
+        /// Represents a converter for the TextDecorationLine enumeration,
         /// taking many values or none.
         /// </summary>
         public static readonly IValueConverter TextDecorationLinesConverter = Or(Map.TextDecorationLines.ToConverter().Many(), None);
@@ -263,7 +368,7 @@
 		/// Represents a converter for the TextTAligLast enumeration.
 		/// </summary>
 		public static readonly IValueConverter TextAlignLastConverter = Map.TextAlignLasts.ToConverter();
-		
+
 		/// <summary>
 		/// Represents a converter for the TextAnchor enumeration.
 		/// </summary>
@@ -288,6 +393,11 @@
         /// Represents a converter for the OverflowMode enumeration.
         /// </summary>
         public static readonly IValueConverter OverflowModeConverter = Map.OverflowModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the extended (directional) OverflowMode enumeration.
+        /// </summary>
+        public static readonly IValueConverter OverflowExtendedModeConverter = Map.OverflowExtendedModes.ToConverter();
 
         /// <summary>
         /// Represents a converter for the Floating enumeration.
@@ -320,6 +430,21 @@
         public static readonly IValueConverter FontWeightConverter = Map.FontWeights.ToConverter();
 
         /// <summary>
+        /// Represents a converter for the RubyAlignment enumeration.
+        /// </summary>
+        public static readonly IValueConverter RubyAlignmentConverter = Map.RubyAlignments.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the RubyOverhandMode enumeration.
+        /// </summary>
+        public static readonly IValueConverter RubyOverhangModeConverter = Map.RubyOverhangModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the RubyPosition enumeration.
+        /// </summary>
+        public static readonly IValueConverter RubyPositionConverter = Map.RubyPositions.ToConverter();
+
+        /// <summary>
         /// Represents a converter for the SystemFont enumeration.
         /// </summary>
         public static readonly IValueConverter SystemFontConverter = Map.SystemFonts.ToConverter();
@@ -328,7 +453,7 @@
 		/// Represents a converter for the StrokeLinecap enumeration.
 		/// </summary>
 		public static readonly IValueConverter StrokeLinecapConverter = Map.StrokeLinecaps.ToConverter();
-		
+
 		/// <summary>
 		/// Represents a converter for the StrokeLinejoin enumeration.
 		/// </summary>
@@ -364,6 +489,36 @@
         /// </summary>
         public static readonly IValueConverter HoverAbilityConverter = Map.HoverAbilities.ToConverter();
 
+        /// <summary>
+        /// Represents a converter for the JustifyContent enumeration.
+        /// </summary>
+        public static readonly IValueConverter JustifyContentConverter = Map.JustifyContentModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the AlignContent enumeration.
+        /// </summary>
+        public static readonly IValueConverter AlignContentConverter = Map.AlignContentModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the AlignSelf enumeration.
+        /// </summary>
+        public static readonly IValueConverter AlignSelfConverter = Map.AlignSelfModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the AlignItems enumeration.
+        /// </summary>
+        public static readonly IValueConverter AlignItemsConverter = Map.AlignItemsModes.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the FlexDirection enumeration.
+        /// </summary>
+        public static readonly IValueConverter FlexDirectionConverter = Map.FlexDirections.ToConverter();
+
+        /// <summary>
+        /// Represents a converter for the FlexWrap enumeration.
+        /// </summary>
+        public static readonly IValueConverter FlexWrapConverter = Map.FlexWrapModes.ToConverter();
+
         #endregion
 
         #region Specific
@@ -372,63 +527,56 @@
         /// Represents an optional integer object.
         /// </summary>
         public static readonly IValueConverter OptionalIntegerConverter = Or(
-            IntegerConverter, 
+            IntegerConverter,
             Auto);
 
         /// <summary>
         /// Represents a positive or infinite number object.
         /// </summary>
         public static readonly IValueConverter PositiveOrInfiniteNumberConverter = Or(
-            NaturalNumberConverter, 
-            Assign(CssKeywords.Infinite, Single.PositiveInfinity));
+            NaturalNumberConverter,
+            Assign(CssKeywords.Infinite, Double.PositiveInfinity));
 
         /// <summary>
         /// Represents a positive or infinite number object.
         /// </summary>
         public static readonly IValueConverter OptionalNumberConverter = Or(
-            NumberConverter, 
+            NumberConverter,
             None);
-
-        /// <summary>
-        /// Represents a length object or alternatively a fixed length when "normal" is given.
-        /// </summary>
-        public static readonly IValueConverter LengthOrNormalConverter = Or(
-            LengthConverter, 
-            Assign(CssKeywords.Normal, new Length(1f, Length.Unit.Em)));
 
         /// <summary>
         /// Represents a length object or null, when "normal" is given.
         /// </summary>
         public static readonly IValueConverter OptionalLengthConverter = Or(
-            LengthConverter, 
+            LengthConverter,
             Assign(CssKeywords.Normal, Length.Normal));
 
         /// <summary>
         /// Represents a length (or default).
         /// </summary>
         public static readonly IValueConverter AutoLengthConverter = Or(
-            LengthConverter, 
+            LengthConverter,
             Auto);
 
         /// <summary>
         /// Represents a distance object (either Length or Percent) or none.
         /// </summary>
         public static readonly IValueConverter OptionalLengthOrPercentConverter = Or(
-            LengthOrPercentConverter, 
+            LengthOrPercentConverter,
             None);
 
         /// <summary>
         /// Represents a distance object (or default).
         /// </summary>
         public static readonly IValueConverter AutoLengthOrPercentConverter = Or(
-            LengthOrPercentConverter, 
+            LengthOrPercentConverter,
             Auto);
 
         /// <summary>
         /// Represents a length for a font size.
         /// </summary>
         public static readonly IValueConverter FontSizeConverter = Or(
-            LengthOrPercentConverter, 
+            LengthOrPercentConverter,
             Map.FontSizes.ToConverter());
 
         #endregion
@@ -440,8 +588,15 @@
         /// http://www.w3.org/TR/CSS2/visudet.html#propdef-line-height
         /// </summary>
         public static readonly IValueConverter LineHeightConverter = Or(
-            LengthOrPercentConverter, 
-            NumberConverter, 
+            LengthOrPercentConverter,
+            NumberConverter,
+            Assign(CssKeywords.Normal, Length.Normal));
+        
+        /// <summary>
+        /// Represents a distance object or normal length.
+        /// </summary>
+        public static readonly IValueConverter GapConverter = Or(
+            LengthOrPercentConverter,
             Assign(CssKeywords.Normal, Length.Normal));
 
         /// <summary>
@@ -454,27 +609,30 @@
         /// Represents a length object that is based on percentage, length or number.
         /// http://dev.w3.org/csswg/css-backgrounds/#border-image-width
         /// </summary>
-        public static readonly IValueConverter ImageBorderWidthConverter = new StructValueConverter<Length>(UnitParser.ParseBorderWidth);
+        public static readonly IValueConverter ImageBorderWidthConverter = FromParser(UnitParser.ParseBorderWidth);
 
+        /// <summary>
+        /// Represents a length object derived from an image border-width.
+        /// </summary>
         public static readonly IValueConverter BorderImageWidthConverter = ImageBorderWidthConverter.Periodic();
 
         /// <summary>
         /// Represents a timing-function object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function
         /// </summary>
-        public static readonly IValueConverter TransitionConverter = new ClassValueConverter<ITimingFunction>(TimingFunctionParser.ParseTimingFunction);
+        public static readonly IValueConverter TransitionConverter = FromParser(TimingFunctionParser.ParseTimingFunction);
 
         /// <summary>
         /// Represents a gradient object.
         /// https://developer.mozilla.org/en-US/docs/Web/CSS/gradient
         /// </summary>
-        public static readonly IValueConverter GradientConverter = new ClassValueConverter<IGradient>(GradientParser.ParseGradient);
+        public static readonly IValueConverter GradientConverter = FromParser(GradientParser.ParseGradient);
 
         /// <summary>
         /// Represents a transform function.
         /// http://www.w3.org/TR/css3-transforms/#typedef-transform-function
         /// </summary>
-        public static readonly IValueConverter TransformConverter = new ClassValueConverter<ITransform>(TransformParser.ParseTransform);
+        public static readonly IValueConverter TransformConverter = FromParser(TransformParser.ParseTransform);
 
         /// <summary>
         /// Represents a color object or, alternatively, the current color.
@@ -485,15 +643,15 @@
         /// Represents a color object, the current color, or the inverted current color.
         /// </summary>
         public static readonly IValueConverter InvertedColorConverter = Or(
-            CurrentColorConverter, 
+            CurrentColorConverter,
             Assign(CssKeywords.Invert, Color.InvertedColor));
 
 		/// <summary>
 		/// Represents a paint object.
 		/// </summary>
 		public static readonly IValueConverter PaintConverter = Or(
-            UrlConverter, 
-            CurrentColorConverter, 
+            UrlConverter,
+            CurrentColorConverter,
             None);
 
 		/// <summary>
@@ -501,7 +659,7 @@
 		/// taking many values or none.
 		/// </summary>
 		public static readonly IValueConverter StrokeDasharrayConverter = Or(
-            Or(LengthOrPercentConverter, NumberConverter).Many(), 
+            Or(LengthOrPercentConverter, NumberConverter).Many(),
             None);
 
 		/// <summary>
@@ -520,7 +678,7 @@
         /// http://dev.w3.org/csswg/css-backgrounds/#shadow
         /// </summary>
         public static readonly IValueConverter MultipleShadowConverter = Or(
-            new ClassValueConverter<Shadow>(ShadowParser.ParseShadow).FromList(), 
+            FromParser(ShadowParser.ParseShadow).FromList(),
             None);
 
         /// <summary>
@@ -541,13 +699,13 @@
         /// Represents the border-radius (horizontal / vertical; radius) converter.
         /// </summary>
         public static readonly IValueConverter BorderRadiusLonghandConverter = WithOrder(
-            LengthOrPercentConverter, 
+            LengthOrPercentConverter,
             LengthOrPercentConverter.Option());
 
         /// <summary>
         /// Represents a converter for font families.
         /// </summary>
-        public static readonly IValueConverter FontFamiliesConverter = new ClassValueConverter<ICssValue>(IdentParser.ParseFontFamily).FromList();
+        public static readonly IValueConverter FontFamiliesConverter = FromParser(IdentParser.ParseFontFamily).FromList();
 
         /// <summary>
         /// Represents a converter for background size.
@@ -615,35 +773,6 @@
 
         #endregion
 
-        #region Misc
-
-        /// <summary>
-        /// Creates an or converter for the given converters.
-        /// </summary>
-        public static IValueConverter Or(params IValueConverter[] converters) => new OrValueConverter(converters);
-
-        /// <summary>
-        /// Creates a converter for the initial keyword with the given value.
-        /// </summary>
-        public static IValueConverter AssignInitial<T>(T value) => new StandardValueConverter<T>(value);
-
-        /// <summary>
-        /// Creates a converter for the initial keyword with no value.
-        /// </summary>
-        public static IValueConverter AssignInitial() => AssignInitial<Object>(null);
-
-        /// <summary>
-        /// Creates a new converter by assigning the given identifier to a fixed result.
-        /// </summary>
-        public static IValueConverter Assign<T>(String identifier, T result) => new IdentifierValueConverter<T>(identifier, result);
-
-        /// <summary>
-        /// Creates a new boolean converter that toggles between the two given keywords.
-        /// </summary>
-        public static IValueConverter Toggle(String on, String off) => Or(Assign(on, true), Assign(off, false));
-
-        #endregion
-
         #region Order / Unordered
 
         /// <summary>
@@ -662,9 +791,95 @@
 
         #endregion
 
+        #region Grid
+
+        /// <summary>
+        /// Represents a converter for LineName values.
+        /// </summary>
+        public static readonly IValueConverter LineNamesConverter = FromParser(GridParser.ParseLineNames);
+
+        /// <summary>
+        /// Represents a converter for TrackSize values.
+        /// </summary>
+        public static readonly IValueConverter TrackSizeConverter = FromParser(GridParser.ParseTrackSize);
+
+        /// <summary>
+        /// Represents a converter for FixedSize values.
+        /// </summary>
+        public static readonly IValueConverter FixedSizeConverter = FromParser(GridParser.ParseFixedSize);
+
+        /// <summary>
+        /// Represents a converter for TrackRepeat values.
+        /// </summary>
+        public static readonly IValueConverter TrackRepeatConverter = FromParser(GridParser.ParseTrackRepeat);
+
+        /// <summary>
+        /// Represents a converter for FixedRepeat values.
+        /// </summary>
+        public static readonly IValueConverter FixedRepeatConverter = FromParser(GridParser.ParseFixedRepeat);
+
+        /// <summary>
+        /// Represents a converter for AutoRepeat values.
+        /// </summary>
+        public static readonly IValueConverter AutoRepeatConverter = FromParser(GridParser.ParseAutoRepeat);
+
+        /// <summary>
+        /// Represents a converter for TrackList values.
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns#track-list
+        /// </summary>
+        public static readonly IValueConverter TrackListConverter = FromParser(GridParser.ParseTrackList);
+
+        /// <summary>
+        /// Represents a converter for AutoTrackList values.
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns#auto-track-list
+        /// </summary>
+        public static readonly IValueConverter AutoTrackListConverter = FromParser(GridParser.ParseAutoTrackList);
+
+        #endregion
+
+        #region Premade
+
+        public static readonly IValueConverter MarginConverter = Or(AutoLengthOrPercentConverter, AssignInitial(Length.Zero));
+
+        public static readonly IValueConverter PaddingConverter = Or(LengthOrPercentConverter, AssignInitial(Length.Zero));
+
+        public static readonly IValueConverter BorderSideConverter = Or(WithAny(LineWidthConverter.Option(), LineStyleConverter.Option(), CurrentColorConverter.Option()), AssignInitial());
+
+        public static readonly IValueConverter GridTemplateConverter = Or(None, TrackListConverter.Exclusive(), AutoTrackListConverter.Exclusive(), AssignInitial());
+
+        public static readonly IValueConverter GridAutoConverter = Or(TrackSizeConverter.Many(), AssignInitial());
+
+        public static readonly IValueConverter GridLineConverter = Or(
+            Assign(CssKeywords.Auto, "auto"),
+            WithAny(Assign(CssKeywords.Span, true), IntegerConverter, IdentifierConverter),
+            AssignInitial());
+
+        #endregion
+
         #region Helpers
 
-        private static Func<Text.StringSource, Length?> FromInteger(Func<Text.StringSource, Int32?> converter)
+        private static IValueConverter FromParser<T>(Func<StringSource, T> converter)
+            where T : class, ICssValue
+        {
+            return new ClassValueConverter<T>(converter);
+        }
+
+        private static Func<StringSource, StringValue> FromString(Func<StringSource, String> converter)
+        {
+            return source =>
+            {
+                var result = converter.Invoke(source);
+
+                if (result != null)
+                {
+                    return new StringValue(result);
+                }
+
+                return null;
+            };
+        }
+
+        private static Func<StringSource, Length?> FromInteger(Func<StringSource, Int32?> converter)
         {
             return source =>
             {
@@ -679,7 +894,7 @@
             };
         }
 
-        private static Func<Text.StringSource, Length?> FromNumber(Func<Text.StringSource, Single?> converter)
+        private static Func<StringSource, Length?> FromNumber(Func<StringSource, Double?> converter)
         {
             return source =>
             {

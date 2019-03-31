@@ -1,22 +1,21 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
     using System;
     using System.Collections.Generic;
 
     /// <summary>
-    /// The shadow class for holding information about
-    /// a box or text-shadow.
+    /// The shadow class for holding information about a box or text-shadow.
     /// </summary>
-    public sealed class Shadow : ICssValue
+    class Shadow : ICssValue
     {
         #region Fields
 
         private readonly Boolean _inset;
-        private readonly Length _offsetX;
-        private readonly Length _offsetY;
-        private readonly Length _blurRadius;
-        private readonly Length _spreadRadius;
+        private readonly ICssValue _offsetX;
+        private readonly ICssValue _offsetY;
+        private readonly ICssValue _blurRadius;
+        private readonly ICssValue _spreadRadius;
         private readonly Color _color;
 
         #endregion
@@ -32,7 +31,7 @@
         /// <param name="blurRadius">The blur radius of the shadow.</param>
         /// <param name="spreadRadius">The spread radius of the shadow.</param>
         /// <param name="color">The color of the shadow.</param>
-        public Shadow(Boolean inset, Length offsetX, Length offsetY, Length blurRadius, Length spreadRadius, Color color)
+        public Shadow(Boolean inset, ICssValue offsetX, ICssValue offsetY, ICssValue blurRadius, ICssValue spreadRadius, Color color)
         {
             _inset = inset;
             _offsetX = offsetX;
@@ -45,100 +44,72 @@
         #endregion
 
         #region Properties
-
+        
         /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get
+            {
+                var parts = new List<String>();
+
+                if (_inset)
+                {
+                    parts.Add(CssKeywords.Inset);
+                }
+
+                parts.Add(_offsetX.CssText);
+                parts.Add(_offsetY.CssText);
+
+                if (_blurRadius != null && !_blurRadius.Equals(Length.Zero))
+                {
+                    parts.Add(_blurRadius.CssText);
+                }
+
+                if (_spreadRadius != null && !_spreadRadius.Equals(Length.Zero))
+                {
+                    parts.Add(_spreadRadius.CssText);
+                }
+
+                if (_color != Color.Black)
+                {
+                    parts.Add(_color.CssText);
+                }
+
+                return String.Join(" ", parts);
+            }
         }
 
         /// <summary>
         /// Gets the color of the shadow.
         /// </summary>
-        public Color Color
-        {
-            get { return _color; }
-        }
+        public Color Color => _color;
 
         /// <summary>
         /// Gets the horizontal offset.
         /// </summary>
-        public Length OffsetX
-        {
-            get { return _offsetX; }
-        }
+        public ICssValue OffsetX => _offsetX;
 
         /// <summary>
         /// Gets the vertical offset.
         /// </summary>
-        public Length OffsetY
-        {
-            get { return _offsetY; }
-        }
+        public ICssValue OffsetY => _offsetY;
 
         /// <summary>
         /// Gets the blur radius.
         /// </summary>
-        public Length BlurRadius
-        {
-            get { return _blurRadius; }
-        }
+        public ICssValue BlurRadius => _blurRadius;
 
         /// <summary>
         /// Gets the spread radius.
         /// </summary>
-        public Length SpreadRadius
-        {
-            get { return _spreadRadius; }
-        }
+        public ICssValue SpreadRadius => _spreadRadius;
 
         /// <summary>
         /// Gets if the shadow is inset.
         /// </summary>
-        public Boolean IsInset
-        {
-            get { return _inset; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Returns a string representing the point.
-        /// </summary>
-        /// <returns>The string.</returns>
-        public override String ToString()
-        {
-            var parts = new List<String>();
-
-            if (_inset)
-            {
-                parts.Add(CssKeywords.Inset);
-            }
-
-            parts.Add(_offsetX.ToString());
-            parts.Add(_offsetY.ToString());
-
-            if (_blurRadius != Length.Zero)
-            {
-                parts.Add(_blurRadius.ToString());
-            }
-
-            if (_spreadRadius != Length.Zero)
-            {
-                parts.Add(_spreadRadius.ToString());
-            }
-
-            if (_color != Color.Black)
-            {
-                parts.Add(_color.ToString());
-            }
-
-            return String.Join(" ", parts);
-        }
+        public Boolean IsInset => _inset;
 
         #endregion
     }

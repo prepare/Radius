@@ -1,8 +1,9 @@
-﻿namespace AngleSharp.Css.Parser
+namespace AngleSharp.Css.Parser
 {
     using AngleSharp.Css.Values;
     using AngleSharp.Text;
     using System;
+    using System.Collections.Generic;
 
     static class FunctionParser
     {
@@ -20,6 +21,76 @@
                 if (content != null && f == Symbols.RoundBracketClose)
                 {
                     return content;
+                }
+            }
+
+            return null;
+        }
+
+        public static VarReferences ParseVars(this StringSource source)
+        {
+            var index = source.Index;
+            var length = FunctionNames.Var.Length;
+            var refs = default(List<Tuple<TextRange, VarReference>>);
+
+            while (!source.IsDone)
+            {
+                index = source.Content.IndexOf(FunctionNames.Var, index, StringComparison.OrdinalIgnoreCase) + length;
+
+                if (index >= length)
+                {
+                    source.NextTo(index);
+                    var c = source.SkipSpacesAndComments();
+
+                    if (c == Symbols.RoundBracketOpen)
+                    {
+                        source.SkipCurrentAndSpaces();
+                        var s = new TextPosition(0, 0, source.Index);
+                        var reference = ParseVar(source);
+
+                        if (reference == null)
+                        {
+                            refs = null;
+                            break;
+                        }
+
+                        if (refs == null)
+                        {
+                            refs = new List<Tuple<TextRange, VarReference>>();
+                        }
+
+                        var e = new TextPosition(0, 0, source.Index);
+                        refs.Add(Tuple.Create(new TextRange(s, e), reference));
+                        continue;
+                    }
+                }
+                
+                break;
+            }
+
+            if (refs != null)
+            {
+                return new VarReferences(source.Content, refs);
+            }
+
+            return null;
+        }
+
+        public static VarReference ParseVar(this StringSource source)
+        {
+            var name = source.ParseCustomIdent();
+            var f = source.SkipGetSkip();
+
+            if (name != null)
+            {
+                switch (f)
+                {
+                    case Symbols.RoundBracketClose:
+                        return new VarReference(name);
+                    case Symbols.Comma:
+                        var defaultValue = source.TakeUntilClosed();
+                        source.SkipCurrentAndSpaces();
+                        return new VarReference(name, defaultValue);
                 }
             }
 

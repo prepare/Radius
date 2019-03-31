@@ -1,5 +1,6 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
 
@@ -7,7 +8,7 @@
     /// Represents an URL object.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/uri
     /// </summary>
-    public sealed class UrlReference : IImageSource
+    class UrlReference : IImageSource, ICssFunctionValue
     {
         #region Fields
 
@@ -17,6 +18,10 @@
 
         #region ctor
 
+        /// <summary>
+        /// Creates a new URL reference for the given path.
+        /// </summary>
+        /// <param name="path">The path to reference.</param>
         public UrlReference(String path)
         {
             _path = path;
@@ -27,27 +32,24 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name => FunctionNames.Url;
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments => new[] { new StringValue(_path) };
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
-        public String CssText
-        {
-            get { return ToString(); }
-        }
+        public String CssText => Name.CssFunction(_path.CssString());
 
-        public String Path
-        {
-            get { return _path; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public override String ToString()
-        {
-            var fn = FunctionNames.Url;
-            return fn.CssFunction(_path.CssString());
-        }
+        /// <summary>
+        /// Gets the referenced path.
+        /// </summary>
+        public String Path => _path;
 
         #endregion
     }

@@ -1,5 +1,7 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Converters;
+    using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
     using System.Collections.Generic;
@@ -9,14 +11,14 @@
     /// Represents a radial gradient:
     /// http://dev.w3.org/csswg/css-images-3/#radial-gradients
     /// </summary>
-    public sealed class RadialGradient : IGradient
+    class RadialGradient : IGradient, ICssFunctionValue
     {
         #region Fields
 
         private readonly GradientStop[] _stops;
         private readonly Point _center;
-        private readonly Length _width;
-        private readonly Length _height;
+        private readonly ICssValue _width;
+        private readonly ICssValue _height;
         private readonly Boolean _repeating;
         private readonly Boolean _circle;
         private readonly SizeMode _sizeMode;
@@ -35,7 +37,7 @@
         /// <param name="sizeMode">The size mode of the ellipsoid.</param>
         /// <param name="stops">A collection of stops to use.</param>
         /// <param name="repeating">The repeating setting.</param>
-        public RadialGradient(Boolean circle, Point center, Length width, Length height, SizeMode sizeMode, GradientStop[] stops, Boolean repeating = false)
+        public RadialGradient(Boolean circle, Point center, ICssValue width, ICssValue height, SizeMode sizeMode, GradientStop[] stops, Boolean repeating = false)
         {
             _stops = stops;
             _center = center;
@@ -51,11 +53,74 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name
+        {
+            get { return _repeating ? FunctionNames.RepeatingRadialGradient : FunctionNames.RadialGradient; }
+        }
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments
+        {
+            get
+            {
+                var isDefault = _center == Point.Center && !_circle && _height == null && _width == null && _sizeMode == SizeMode.None;
+                var args = new List<ICssValue>();
+
+                if (!isDefault)
+                {
+                    var size = String.Empty;
+
+                    if (_sizeMode != SizeMode.None)
+                    {
+                        foreach (var pair in Map.RadialGradientSizeModes)
+                        {
+                            if (pair.Value == _sizeMode)
+                            {
+                                size = pair.Key;
+                                break;
+                            }
+                        }
+                    }
+                    else if (_width != null)
+                    {
+                        if (_circle || _height == null)
+                        {
+                            size = _width.CssText;
+                        }
+                        else
+                        {
+                            size = String.Concat(_width.CssText, " ", _height.CssText);
+                        }
+                    }
+
+                    args.Add(new CssAnyValue(String.Join(" ", new[]
+                    {
+                        _circle ? CssKeywords.Circle : CssKeywords.Ellipse,
+                        size,
+                        CssKeywords.At,
+                        _center.CssText
+                    })));
+                }
+
+                foreach (var stop in _stops)
+                {
+                    args.Add(stop);
+                }
+
+                return args.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get {  return Name.CssFunction(Arguments.Join(", ")); }
         }
 
         /// <summary>
@@ -85,25 +150,25 @@
         /// <summary>
         /// Gets the horizontal radius.
         /// </summary>
-        public Length MajorRadius
+        public ICssValue MajorRadius
         {
-            get { return _width; }
+            get { return _width ?? Length.Full; }
         }
 
         /// <summary>
         /// Gets the vertical radius.
         /// </summary>
-        public Length MinorRadius
+        public ICssValue MinorRadius
         {
-            get { return _height; }
+            get { return _height ?? Length.Full; }
         }
 
         /// <summary>
-        /// Gets an enumeration of all stops.
+        /// Gets all stops.
         /// </summary>
-        public IEnumerable<GradientStop> Stops
+        public GradientStop[] Stops
         {
-            get { return _stops.AsEnumerable(); }
+            get { return _stops; }
         }
 
         /// <summary>
@@ -112,62 +177,6 @@
         public Boolean IsRepeating
         {
             get { return _repeating; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Returns the string representation of the radial gradient function.
-        /// </summary>
-        public override String ToString()
-        {
-            var fn = _repeating ? FunctionNames.RepeatingRadialGradient : FunctionNames.RadialGradient;
-            var isDefault = _center == Point.Center && !_circle && _height == Length.Full && _width == Length.Full && _sizeMode == SizeMode.None;
-            var offset = isDefault ? 0 : 1;
-            var args = new String[_stops.Length + offset];
-
-            if (!isDefault)
-            {
-                var size = String.Empty;
-
-                if (_sizeMode != SizeMode.None)
-                {
-                    foreach (var pair in Map.RadialGradientSizeModes)
-                    {
-                        if (pair.Value == _sizeMode)
-                        {
-                            size = pair.Key;
-                            break;
-                        }
-                    }
-                }
-                else if (_circle)
-                {
-                    size = _width.ToString();
-                }
-                else
-                {
-                    size = String.Concat(_width.ToString(), " ", _height.ToString());
-                }
-
-                var parts = new[] 
-                {
-                    _circle ? CssKeywords.Circle : CssKeywords.Ellipse,
-                    size,
-                    CssKeywords.At,
-                    _center.ToString()
-                };
-                args[0] = String.Join(" ", parts);
-            }
-            
-            for (var i = 0; i < _stops.Length; i++)
-            {
-                args[offset++] = _stops[i].ToString();
-            }
-
-            return fn.CssFunction(String.Join(", ", args));
         }
 
         #endregion

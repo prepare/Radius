@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css.Dom
+namespace AngleSharp.Css.Dom
 {
     using AngleSharp.Css;
     using AngleSharp.Css.Converters;
@@ -25,16 +25,24 @@
 
         #region ctor
 
-        internal CssProperty(String name, IValueConverter converter, PropertyFlags flags = PropertyFlags.None)
+        internal CssProperty(String name, IValueConverter converter, PropertyFlags flags = PropertyFlags.None, ICssValue value = null, Boolean important = false)
         {
             _name = name.ToLowerInvariant();
-            _flags = flags;
             _converter = converter;
+            _flags = flags;
+            _value = value;
+            _important = important;
         }
 
         #endregion
 
         #region Properties
+
+        public ICssValue RawValue
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
         
         public String Value
         {
@@ -51,6 +59,7 @@
         {
             get { return (((_flags & PropertyFlags.Inherited) == PropertyFlags.Inherited) && IsInitial) || (HasValue && _value.CssText.Is(CssKeywords.Inherit)); }
         }
+
         public Boolean CanBeInherited
         {
             get { return (_flags & PropertyFlags.Inherited) == PropertyFlags.Inherited; }
@@ -64,6 +73,11 @@
         public Boolean IsInitial
         {
             get { return !HasValue || _value.CssText.Is(CssKeywords.Initial); }
+        }
+
+        public Boolean IsShorthand
+        {
+            get { return (_flags & PropertyFlags.Shorthand) == PropertyFlags.Shorthand; }
         }
 
         public String Name
@@ -94,11 +108,6 @@
         internal Boolean CanBeUnitless
         {
             get { return (_flags & PropertyFlags.Unitless) == PropertyFlags.Unitless; }
-        }
-
-        internal Boolean IsShorthand
-        {
-            get { return (_flags & PropertyFlags.Shorthand) == PropertyFlags.Shorthand; }
         }
 
         internal IValueConverter Converter

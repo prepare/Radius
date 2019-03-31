@@ -1,10 +1,13 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
 
-    public struct BorderImageSlice : ICssValue
+    /// <summary>
+    /// Represents the CSS border image slice definition.
+    /// </summary>
+    struct BorderImageSlice : ICssValue
     {
         #region Fields
 
@@ -18,6 +21,14 @@
 
         #region ctor
 
+        /// <summary>
+        /// Creates a new CSS border image slice definition.
+        /// </summary>
+        /// <param name="top">The top length.</param>
+        /// <param name="right">The right length.</param>
+        /// <param name="bottom">The bottom length.</param>
+        /// <param name="left">The left length.</param>
+        /// <param name="filled">True if the filled flag is enabled, otherwise false.</param>
         public BorderImageSlice(Length top, Length right, Length bottom, Length left, Boolean filled)
         {
             _top = top;
@@ -32,55 +43,89 @@
         #region Properties
 
         /// <summary>
+        /// Gets the bottom coordinate.
+        /// </summary>
+        public Length Bottom
+        {
+            get { return _bottom; }
+        }
+
+        /// <summary>
+        /// Gets the left coordinate.
+        /// </summary>
+        public Length Left
+        {
+            get { return _left; }
+        }
+
+        /// <summary>
+        /// Gets the top coordinate.
+        /// </summary>
+        public Length Top
+        {
+            get { return _top; }
+        }
+
+        /// <summary>
+        /// Gets the right coordinate.
+        /// </summary>
+        public Length Right
+        {
+            get { return _right; }
+        }
+
+        /// <summary>
+        /// Gets if the slice should be filled.
+        /// </summary>
+        public Boolean IsFilled
+        {
+            get { return _filled; }
+        }
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public override String ToString()
-        {
-            var sb = StringBuilderPool.Obtain();
-
-            if (!_top.Equals(Length.Auto))
+            get
             {
-                sb.Append(_top.ToString());
+                var sb = StringBuilderPool.Obtain();
 
-                if (!_right.Equals(Length.Auto))
+                if (!_top.Equals(Length.Auto))
                 {
-                    sb.Append(Symbols.Space);
-                    sb.Append(_right.ToString());
-                }
+                    sb.Append(_top.CssText);
 
-                if (!_bottom.Equals(Length.Auto))
-                {
-                    sb.Append(Symbols.Space);
-                    sb.Append(_bottom.ToString());
-                }
+                    if (!_right.Equals(Length.Auto))
+                    {
+                        sb.Append(Symbols.Space);
+                        sb.Append(_right.CssText);
+                    }
 
-                if (!_left.Equals(Length.Auto))
-                {
-                    sb.Append(Symbols.Space);
-                    sb.Append(_left.ToString());
+                    if (!_bottom.Equals(Length.Auto))
+                    {
+                        sb.Append(Symbols.Space);
+                        sb.Append(_bottom.CssText);
+                    }
+
+                    if (!_left.Equals(Length.Auto))
+                    {
+                        sb.Append(Symbols.Space);
+                        sb.Append(_left.CssText);
+                    }
+
+                    if (_filled)
+                    {
+                        sb.Append(Symbols.Space);
+                    }
                 }
 
                 if (_filled)
                 {
-                    sb.Append(Symbols.Space);
+                    sb.Append(CssKeywords.Fill);
                 }
-            }
 
-            if (_filled)
-            {
-                sb.Append(CssKeywords.Fill);
+                return sb.ToPool();
             }
-
-            return sb.ToPool();
         }
 
         #endregion

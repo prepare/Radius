@@ -1,32 +1,41 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
 
-    public struct BorderImage : ICssValue
+    /// <summary>
+    /// Represents a CSS border image definition.
+    /// </summary>
+    struct BorderImage : ICssValue
     {
         #region Fields
 
-        private readonly IImageSource _image;
-        private readonly BorderImageSlice? _slice;
-        private readonly PeriodicValue<Length> _widths;
-        private readonly PeriodicValue<Length> _outsets;
-        private readonly BorderRepeat? _repeatX;
-        private readonly BorderRepeat? _repeatY;
+        private readonly ICssValue _image;
+        private readonly ICssValue _slice;
+        private readonly ICssValue _widths;
+        private readonly ICssValue _outsets;
+        private readonly ICssValue _repeat;
 
         #endregion
 
         #region ctor
 
-        public BorderImage(IImageSource image, BorderImageSlice? slice, PeriodicValue<Length> widths, PeriodicValue<Length> outsets, BorderRepeat? repeatX, BorderRepeat? repeatY)
+        /// <summary>
+        /// Creates a new border image definition.
+        /// </summary>
+        /// <param name="image">The image source to use.</param>
+        /// <param name="slice">The image slice portion.</param>
+        /// <param name="widths">The image width definitions.</param>
+        /// <param name="outsets">The image outset declarations.</param>
+        /// <param name="repeat">The image repeat settings.</param>
+        public BorderImage(ICssValue image, ICssValue slice, ICssValue widths, ICssValue outsets, ICssValue repeat)
         {
             _image = image;
             _slice = slice;
             _widths = widths;
             _outsets = outsets;
-            _repeatX = repeatX;
-            _repeatY = repeatY;
+            _repeat = repeat;
         }
 
         #endregion
@@ -38,83 +47,81 @@
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get
+            {
+                var sb = StringBuilderPool.Obtain();
+
+                if (_image != null)
+                {
+                    if (sb.Length > 0) sb.Append(Symbols.Space);
+                    sb.Append(_image.CssText);
+                }
+
+                if (_slice != null)
+                {
+                    if (sb.Length > 0) sb.Append(Symbols.Space);
+                    sb.Append(_slice.CssText);
+                }
+
+                if (_widths != null)
+                {
+                    sb.Append(" / ").Append(_widths.CssText);
+                }
+
+                if (_outsets != null)
+                {
+                    if (_widths == null) sb.Append(" / ");
+                    sb.Append(" / ").Append(_outsets.CssText);
+                }
+
+                if (_repeat != null)
+                {
+                    if (sb.Length > 0) sb.Append(Symbols.Space);
+                    sb.Append(_repeat.CssText);
+                }
+
+                return sb.ToPool();
+            }
         }
 
-        public IImageSource Image
+        /// <summary>
+        /// Gets the associated image value.
+        /// </summary>
+        public ICssValue Image
         {
             get { return _image; }
         }
 
-        public BorderImageSlice? Slice
+        /// <summary>
+        /// Gets the associated slice value.
+        /// </summary>
+        public ICssValue Slice
         {
             get { return _slice; }
         }
 
-        public PeriodicValue<Length> Widths
+        /// <summary>
+        /// Gets the associated width value.
+        /// </summary>
+        public ICssValue Widths
         {
             get { return _widths; }
         }
 
-        public PeriodicValue<Length> Outsets
+        /// <summary>
+        /// Gets the associated outset value.
+        /// </summary>
+        public ICssValue Outsets
         {
             get { return _outsets; }
         }
 
-        public BorderRepeat? RepeatX
+        /// <summary>
+        /// Gets the associated repeat value.
+        /// </summary>
+        public ICssValue Repeat
         {
-            get { return _repeatX; }
-        }
-
-        public BorderRepeat? RepeatY
-        {
-            get { return _repeatY; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public override String ToString()
-        {
-            var sb = StringBuilderPool.Obtain();
-
-            if (_image != null)
-            {
-                if (sb.Length > 0) sb.Append(Symbols.Space);
-                sb.Append(_image.ToString());
-            }
-
-            if (_slice.HasValue)
-            {
-                if (sb.Length > 0) sb.Append(Symbols.Space);
-                sb.Append(_slice.Value.ToString());
-            }
-
-            if (_widths != null)
-            {
-                sb.Append(" / ").Append(_widths.ToString());
-            }
-
-            if (_outsets != null)
-            {
-                if (_widths == null) sb.Append(" / ");
-                sb.Append(" / ").Append(_outsets.ToString());
-            }
-
-            if (_repeatX.HasValue)
-            {
-                if (sb.Length > 0) sb.Append(Symbols.Space);
-                sb.Append(_repeatX.Value.ToString(Map.BorderRepeats));
-            }
-
-            if (_repeatY.HasValue)
-            {
-                if (sb.Length > 0) sb.Append(Symbols.Space);
-                sb.Append(_repeatY.Value.ToString(Map.BorderRepeats));
-            }
-
-            return sb.ToPool();
+            get { return _repeat; }
         }
 
         #endregion

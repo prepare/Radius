@@ -1,23 +1,24 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Converters;
+    using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
-    using System.Globalization;
 
     /// <summary>
     /// Represents the matrix3d transformation.
     /// </summary>
-    public sealed class MatrixTransform : ITransform
+    class MatrixTransform : ITransform, ICssFunctionValue
     {
         #region Fields
 
-        private readonly Single[] _values;
+        private readonly Double[] _values;
 
         #endregion
 
         #region ctor
 
-        internal MatrixTransform(Single[] values)
+        internal MatrixTransform(Double[] values)
         {
             _values = values;
         }
@@ -27,11 +28,37 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name
+        {
+            get { return _values.Length == 6 ? FunctionNames.Matrix : FunctionNames.Matrix3d; }
+        }
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments
+        {
+            get
+            {
+                var args = new ICssValue[_values.Length];
+
+                for (var i = 0; i < args.Length; i++)
+                {
+                    args[i] = new Length(_values[i], Length.Unit.None);
+                }
+
+                return args;
+            }
+        }
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get { return Name.CssFunction(Arguments.Join(", ")); }
         }
 
         /// <summary>
@@ -39,7 +66,7 @@
         /// </summary>
         /// <param name="index">The index to look for.</param>
         /// <returns>The value.</returns>
-        public Single this[Int32 index]
+        public Double this[Int32 index]
         {
             get { return _values[index]; }
         }
@@ -47,22 +74,6 @@
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Serializes to a string.
-        /// </summary>
-        public override String ToString()
-        {
-            var fn = _values.Length == 6 ? FunctionNames.Matrix : FunctionNames.Matrix3d;
-            var args = new String[_values.Length];
-
-            for (var i = 0; i < args.Length; i++)
-            {
-                args[i] = _values[i].ToString(CultureInfo.InvariantCulture);
-            }
-
-            return fn.CssFunction(String.Join(", ", args));
-        }
 
         /// <summary>
         /// Returns the stored matrix.
@@ -74,12 +85,12 @@
 
             if (values.Length == 6)
             {
-                values = new Single[]
+                values = new Double[]
                 {
-                    _values[0], _values[2], 0f, _values[4],
-                    _values[1], _values[3], 0f, _values[5],
-                    1f, 0f, 0f, 0f,
-                    0f, 0f, 0f, 1f
+                    _values[0], _values[2], 0.0, _values[4],
+                    _values[1], _values[3], 0.0, _values[5],
+                    1.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 1.0
                 };
             }
 

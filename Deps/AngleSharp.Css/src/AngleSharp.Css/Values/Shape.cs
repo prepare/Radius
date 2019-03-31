@@ -1,5 +1,6 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Converters;
     using AngleSharp.Css.Dom;
     using AngleSharp.Text;
     using System;
@@ -8,14 +9,14 @@
     /// Represents a CSS shape.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/shape
     /// </summary>
-    public sealed class Shape : ICssValue
+    class Shape : ICssValue, ICssFunctionValue
     {
         #region Fields
 
-        private readonly Length _top;
-        private readonly Length _right;
-        private readonly Length _bottom;
-        private readonly Length _left;
+        private readonly ICssValue _top;
+        private readonly ICssValue _right;
+        private readonly ICssValue _bottom;
+        private readonly ICssValue _left;
 
         #endregion
 
@@ -28,7 +29,7 @@
         /// <param name="right">The right position.</param>
         /// <param name="bottom">The bottom position.</param>
         /// <param name="left">The left position.</param>
-        public Shape(Length top, Length right, Length bottom, Length left)
+        public Shape(ICssValue top, ICssValue right, ICssValue bottom, ICssValue left)
         {
             _top = top;
             _right = right;
@@ -41,66 +42,45 @@
         #region Properties
 
         /// <summary>
+        /// Gets the name of the function.
+        /// </summary>
+        public String Name => FunctionNames.Rect;
+
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public ICssValue[] Arguments => new[]
+        {
+            _top,
+            _right,
+            _bottom,
+            _left,
+        };
+
+        /// <summary>
         /// Gets the CSS text representation.
         /// </summary>
-        public String CssText
-        {
-            get { return ToString(); }
-        }
+        public String CssText => Name.CssFunction(Arguments.Join(", "));
 
         /// <summary>
         /// Gets the top side.
         /// </summary>
-        public Length Top
-        {
-            get { return _top; }
-        }
+        public ICssValue Top => _top;
 
         /// <summary>
         /// Gets the right side.
         /// </summary>
-        public Length Right
-        {
-            get { return _right; }
-        }
+        public ICssValue Right => _right;
 
         /// <summary>
         /// Gets the bottom side.
         /// </summary>
-        public Length Bottom
-        {
-            get { return _bottom; }
-        }
+        public ICssValue Bottom => _bottom;
 
         /// <summary>
         /// Gets the left side.
         /// </summary>
-        public Length Left
-        {
-            get { return _left; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Returns a string representing the shapce.
-        /// </summary>
-        /// <returns>The string.</returns>
-        public override String ToString()
-        {
-            var parts = new[]
-            {
-                _top.ToString(),
-                _right.ToString(),
-                _bottom.ToString(),
-                _left.ToString(),
-            };
-            var fn = FunctionNames.Rect;
-            var args = String.Join(", ", parts);
-            return fn.CssFunction(args);
-        }
+        public ICssValue Left => _left;
 
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css
+namespace AngleSharp.Css
 {
     using AngleSharp.Css.Dom;
     using AngleSharp.Css.Values;
@@ -28,14 +28,14 @@
         /// </summary>
         public static readonly Dictionary<String, Angle> GradientAngles = new Dictionary<String, Angle>(StringComparer.OrdinalIgnoreCase)
         {
-            { CssKeywords.Left, new Angle(270f, Angle.Unit.Deg) },
-            { CssKeywords.Top, new Angle(0, Angle.Unit.Deg) },
-            { CssKeywords.Right, new Angle(90f, Angle.Unit.Deg) },
-            { CssKeywords.Bottom, new Angle(180f, Angle.Unit.Deg) },
-            { CssKeywords.LeftTop, new Angle(315f, Angle.Unit.Deg) },
-            { CssKeywords.LeftBottom, new Angle(225f, Angle.Unit.Deg) },
-            { CssKeywords.RightTop, new Angle(45f, Angle.Unit.Deg) },
-            { CssKeywords.RightBottom, new Angle(135f, Angle.Unit.Deg) },
+            { CssKeywords.Left, new Angle(270.0, Angle.Unit.Deg) },
+            { CssKeywords.Top, new Angle(0.0, Angle.Unit.Deg) },
+            { CssKeywords.Right, new Angle(90.0, Angle.Unit.Deg) },
+            { CssKeywords.Bottom, new Angle(180.0, Angle.Unit.Deg) },
+            { CssKeywords.LeftTop, new Angle(315.0, Angle.Unit.Deg) },
+            { CssKeywords.LeftBottom, new Angle(225.0, Angle.Unit.Deg) },
+            { CssKeywords.RightTop, new Angle(45.0, Angle.Unit.Deg) },
+            { CssKeywords.RightBottom, new Angle(135.0, Angle.Unit.Deg) },
         };
 
         /// <summary>
@@ -148,11 +148,11 @@
         /// </summary>
         public static readonly Dictionary<String, ITimingFunction> TimingFunctions = new Dictionary<String, ITimingFunction>(StringComparer.OrdinalIgnoreCase)
         {
-            { CssKeywords.Ease, new CubicBezierTimingFunction(0.25f, 0.1f, 0.25f, 1f) },
-            { CssKeywords.EaseIn, new CubicBezierTimingFunction(0.42f, 0f, 1f, 1f) },
-            { CssKeywords.EaseOut, new CubicBezierTimingFunction(0f, 0f, 0.58f, 1f) },
-            { CssKeywords.EaseInOut, new CubicBezierTimingFunction(0.42f, 0f, 0.58f, 1f) },
-            { CssKeywords.Linear, new CubicBezierTimingFunction(0f, 0f, 1f, 1f) },
+            { CssKeywords.Ease, new CubicBezierTimingFunction(0.25, 0.1, 0.25, 1.0) },
+            { CssKeywords.EaseIn, new CubicBezierTimingFunction(0.42, 0.0, 1.0, 1.0) },
+            { CssKeywords.EaseOut, new CubicBezierTimingFunction(0.0, 0.0, 0.58, 1.0) },
+            { CssKeywords.EaseInOut, new CubicBezierTimingFunction(0.42, 0.0, 0.58, 1.0) },
+            { CssKeywords.Linear, new CubicBezierTimingFunction(0.0, 0.0, 1.0, 1.0) },
             { CssKeywords.StepStart, new StepsTimingFunction(1, true) },
             { CssKeywords.StepEnd, new StepsTimingFunction(1, false) },
         };
@@ -252,15 +252,15 @@
         /// </summary>
         public static readonly Dictionary<String, Length> FontSizes = new Dictionary<String, Length>(StringComparer.OrdinalIgnoreCase)
         {
-            { CssKeywords.XxSmall, new Length(0.6f, Length.Unit.Em) },
-            { CssKeywords.XSmall, new Length(0.75f, Length.Unit.Em) },
-            { CssKeywords.Small, new Length(8f / 9f, Length.Unit.Em) },
-            { CssKeywords.Medium, new Length(1.0f, Length.Unit.Em) },
-            { CssKeywords.Large, new Length(1.2f, Length.Unit.Em) },
-            { CssKeywords.XLarge, new Length(1.5f, Length.Unit.Em) },
-            { CssKeywords.XxLarge, new Length(2f, Length.Unit.Em) },
-            { CssKeywords.Larger, new Length(120f, Length.Unit.Percent) },
-            { CssKeywords.Smaller, new Length(80f, Length.Unit.Percent) },
+            { CssKeywords.XxSmall, new Length(0.6, Length.Unit.Em) },
+            { CssKeywords.XSmall, new Length(0.75, Length.Unit.Em) },
+            { CssKeywords.Small, new Length(8.0 / 9.0, Length.Unit.Em) },
+            { CssKeywords.Medium, new Length(1.0, Length.Unit.Em) },
+            { CssKeywords.Large, new Length(1.2, Length.Unit.Em) },
+            { CssKeywords.XLarge, new Length(1.5, Length.Unit.Em) },
+            { CssKeywords.XxLarge, new Length(2.0, Length.Unit.Em) },
+            { CssKeywords.Larger, new Length(120.0, Length.Unit.Percent) },
+            { CssKeywords.Smaller, new Length(80.0, Length.Unit.Percent) },
         };
 
         /// <summary>
@@ -406,21 +406,21 @@
         /// <summary>
         /// Contains the string-horizontal modes mapping.
         /// </summary>
-        public static readonly Dictionary<String, Single> HorizontalModes = new Dictionary<String, Single>(StringComparer.OrdinalIgnoreCase)
+        public static readonly Dictionary<String, Double> HorizontalModes = new Dictionary<String, Double>(StringComparer.OrdinalIgnoreCase)
         {
-            { CssKeywords.Left, 0f },
-            { CssKeywords.Center, 0.5f },
-            { CssKeywords.Right, 1f },
+            { CssKeywords.Left, 0.0 },
+            { CssKeywords.Center, 0.5 },
+            { CssKeywords.Right, 1.0 },
         };
 
         /// <summary>
         /// Contains the string-vertical modes mapping.
         /// </summary>
-        public static readonly Dictionary<String, Single> VerticalModes = new Dictionary<String, Single>(StringComparer.OrdinalIgnoreCase)
+        public static readonly Dictionary<String, Double> VerticalModes = new Dictionary<String, Double>(StringComparer.OrdinalIgnoreCase)
         {
-            { CssKeywords.Top, 0f },
-            { CssKeywords.Center, 0.5f },
-            { CssKeywords.Bottom, 1f },
+            { CssKeywords.Top, 0.0 },
+            { CssKeywords.Center, 0.5 },
+            { CssKeywords.Bottom, 1.0 },
         };
 
         /// <summary>
@@ -499,6 +499,18 @@
             { CssKeywords.Visible, OverflowMode.Visible },
             { CssKeywords.Hidden, OverflowMode.Hidden },
             { CssKeywords.Scroll, OverflowMode.Scroll },
+            { CssKeywords.Auto, OverflowMode.Auto },
+        };
+
+        /// <summary>
+        /// Contains the extended string-OverflowMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, OverflowMode> OverflowExtendedModes = new Dictionary<String, OverflowMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.Visible, OverflowMode.Visible },
+            { CssKeywords.Hidden, OverflowMode.Hidden },
+            { CssKeywords.Scroll, OverflowMode.Scroll },
+            { CssKeywords.Clip, OverflowMode.Clip },
             { CssKeywords.Auto, OverflowMode.Auto },
         };
 
@@ -710,224 +722,106 @@
 		};
 
         /// <summary>
-        /// Contains the flags for the known properties.
+        /// Contains the string-RubyAlignment mapping.
         /// </summary>
-        public static readonly Dictionary<String, PropertyFlags> KnownPropertyFlags = new Dictionary<String, PropertyFlags>(StringComparer.OrdinalIgnoreCase)
+        public static readonly Dictionary<String, RubyAlignment> RubyAlignments = new Dictionary<String, RubyAlignment>(StringComparer.OrdinalIgnoreCase)
         {
-            { PropertyNames.Cursor, PropertyFlags.Inherited },
-            { PropertyNames.EmptyCells, PropertyFlags.Inherited },
-            { PropertyNames.Orphans, PropertyFlags.Inherited },
-            { PropertyNames.Quotes, PropertyFlags.Inherited },
-            { PropertyNames.Widows, PropertyFlags.Inherited },
-            { PropertyNames.BoxShadow, PropertyFlags.Animatable },
-            { PropertyNames.ZIndex, PropertyFlags.Animatable },
-            { PropertyNames.ObjectPosition, PropertyFlags.Animatable },
-            { PropertyNames.StrokeDasharray, PropertyFlags.Animatable | PropertyFlags.Unitless },
-            { PropertyNames.StrokeDashoffset, PropertyFlags.Animatable },
-            { PropertyNames.StrokeLinecap, PropertyFlags.Animatable },
-            { PropertyNames.StrokeLinejoin, PropertyFlags.Animatable },
-            { PropertyNames.StrokeMiterlimit, PropertyFlags.Animatable },
-            { PropertyNames.StrokeOpacity, PropertyFlags.Animatable },
-            { PropertyNames.Stroke, PropertyFlags.Animatable },
-            { PropertyNames.StrokeWidth, PropertyFlags.Animatable },
-            { PropertyNames.Direction, PropertyFlags.Inherited },
-            { PropertyNames.PerspectiveOrigin, PropertyFlags.Animatable },
-            { PropertyNames.Perspective, PropertyFlags.Animatable },
-            { PropertyNames.Clip, PropertyFlags.Animatable },
-            { PropertyNames.Opacity, PropertyFlags.Animatable },
-            { PropertyNames.Visibility, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.Bottom, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Height, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Left, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.MaxHeight, PropertyFlags.Animatable },
-            { PropertyNames.MaxWidth, PropertyFlags.Animatable },
-            { PropertyNames.MinHeight, PropertyFlags.Animatable },
-            { PropertyNames.MinWidth, PropertyFlags.Animatable },
-            { PropertyNames.Right, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Top, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Width, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Color, PropertyFlags.Inherited | PropertyFlags.Hashless | PropertyFlags.Animatable },
-            { PropertyNames.WordSpacing, PropertyFlags.Inherited | PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.LineHeight, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.LetterSpacing, PropertyFlags.Inherited | PropertyFlags.Unitless },
-            { PropertyNames.FontSizeAdjust, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.TransformOrigin, PropertyFlags.Animatable },
-            { PropertyNames.Transform, PropertyFlags.Animatable },
-            { PropertyNames.ColumnCount, PropertyFlags.Animatable },
-            { PropertyNames.ColumnGap, PropertyFlags.Animatable },
-            { PropertyNames.ColumnWidth, PropertyFlags.Animatable },
-            { PropertyNames.BorderCollapse, PropertyFlags.Inherited },
-            { PropertyNames.BorderSpacing, PropertyFlags.Inherited },
-            { PropertyNames.WhiteSpace, PropertyFlags.Inherited },
-            { PropertyNames.VerticalAlign, PropertyFlags.Animatable },
-            { PropertyNames.TextShadow, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.TextIndent, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.TextAlign, PropertyFlags.Inherited },
-            { PropertyNames.TextTransform, PropertyFlags.Inherited },
-            { PropertyNames.ListStyleImage, PropertyFlags.Inherited },
-            { PropertyNames.ListStylePosition, PropertyFlags.Inherited },
-            { PropertyNames.ListStyleType, PropertyFlags.Inherited },
-            { PropertyNames.FontFamily, PropertyFlags.Inherited },
-            { PropertyNames.FontSize, PropertyFlags.Inherited | PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.FontStyle, PropertyFlags.Inherited },
-            { PropertyNames.FontStretch, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.FontVariant, PropertyFlags.Inherited },
-            { PropertyNames.FontWeight, PropertyFlags.Inherited | PropertyFlags.Animatable },
-            { PropertyNames.ColumnRuleWidth, PropertyFlags.Animatable },
-            { PropertyNames.ColumnRuleColor, PropertyFlags.Animatable },
-            { PropertyNames.PaddingTop, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.PaddingRight, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.PaddingLeft, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.PaddingBottom, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.MarginTop, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.MarginRight, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.MarginLeft, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.MarginBottom, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.BorderTopRightRadius, PropertyFlags.Animatable },
-            { PropertyNames.BorderTopLeftRadius, PropertyFlags.Animatable },
-            { PropertyNames.BorderBottomRightRadius, PropertyFlags.Animatable },
-            { PropertyNames.BorderBottomLeftRadius, PropertyFlags.Animatable },
-            { PropertyNames.OutlineWidth, PropertyFlags.Animatable },
-            { PropertyNames.OutlineColor, PropertyFlags.Animatable },
-            { PropertyNames.TextDecorationColor, PropertyFlags.Animatable },
-            { PropertyNames.BackgroundSize, PropertyFlags.Animatable },
-            { PropertyNames.BackgroundPosition, PropertyFlags.Animatable },
-            { PropertyNames.BackgroundColor, PropertyFlags.Hashless | PropertyFlags.Animatable },
-            { PropertyNames.BorderTopWidth, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.BorderRightWidth, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.BorderLeftWidth, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.BorderBottomWidth, PropertyFlags.Unitless | PropertyFlags.Animatable },
-            { PropertyNames.Animation, PropertyFlags.Shorthand },
-            { PropertyNames.Background, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.Transition, PropertyFlags.Shorthand },
-            { PropertyNames.TextDecoration, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.Outline, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.ListStyle, PropertyFlags.Inherited | PropertyFlags.Shorthand },
-            { PropertyNames.Font, PropertyFlags.Inherited | PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.Columns, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.ColumnRule, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderRadius, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.Padding, PropertyFlags.Shorthand },
-            { PropertyNames.Margin, PropertyFlags.Shorthand },
-            { PropertyNames.BorderImage, PropertyFlags.Shorthand },
-            { PropertyNames.BorderWidth, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderTop, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderStyle, PropertyFlags.Shorthand },
-            { PropertyNames.BorderRight, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderLeft, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderColor, PropertyFlags.Hashless | PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.BorderBottom, PropertyFlags.Animatable | PropertyFlags.Shorthand },
-            { PropertyNames.Border, PropertyFlags.Animatable | PropertyFlags.Shorthand },
+            { CssKeywords.Center, RubyAlignment.Center },
+            { CssKeywords.Start, RubyAlignment.Start },
+            { CssKeywords.SpaceAround, RubyAlignment.SpaceAround },
+            { CssKeywords.SpaceBetween, RubyAlignment.SpaceBetween },
         };
 
         /// <summary>
-        /// Contains the animatable properties.
+        /// Contains the string-RubyPosition mapping.
         /// </summary>
-        public static readonly HashSet<String> Animatables = new HashSet<String>(StringComparer.OrdinalIgnoreCase)
+        public static readonly Dictionary<String, RubyPosition> RubyPositions = new Dictionary<String, RubyPosition>(StringComparer.OrdinalIgnoreCase)
         {
-            "all",
-            "backdrop-filter",
-            "background",
-            "background-color",
-            "background-position",
-            "background-size",
-            "border",
-            "border-bottom",
-            "border-bottom-color",
-            "border-bottom-left-radius",
-            "border-bottom-right-radius",
-            "border-bottom-width",
-            "border-color",
-            "border-left",
-            "border-left-color",
-            "border-left-width",
-            "border-radius",
-            "border-right",
-            "border-right-color",
-            "border-right-width",
-            "border-top",
-            "border-top-color",
-            "border-top-left-radius",
-            "border-top-right-radius",
-            "border-top-width",
-            "border-width",
-            "bottom",
-            "box-shadow",
-            "clip",
-            "clip-path",
-            "color",
-            "column-count",
-            "column-gap",
-            "column-rule",
-            "column-rule-color",
-            "column-rule-width",
-            "column-width",
-            "columns",
-            "filter",
-            "flex",
-            "flex-basis",
-            "flex-grow",
-            "flex-shrink",
-            "font",
-            "font-size",
-            "font-size-adjust",
-            "font-stretch",
-            "font-weight",
-            "grid-column-gap",
-            "grid-gap",
-            "grid-row-gap",
-            "height",
-            "left",
-            "letter-spacing",
-            "line-height",
-            "margin",
-            "margin-bottom",
-            "margin-left",
-            "margin-right",
-            "margin-top",
-            "mask",
-            "mask-position",
-            "mask-size",
-            "max-height",
-            "max-width",
-            "min-height",
-            "min-width",
-            "motion-offset",
-            "motion-rotation",
-            "object-position",
-            "opacity",
-            "order",
-            "outline",
-            "outline-color",
-            "outline-offset",
-            "outline-width",
-            "padding",
-            "padding-bottom",
-            "padding-left",
-            "padding-right",
-            "padding-top",
-            "perspective",
-            "perspective-origin",
-            "right",
-            "scroll-snap-coordinate",
-            "scroll-snap-destination",
-            "shape-image-threshold",
-            "shape-margin",
-            "shape-outside",
-            "text-decoration",
-            "text-decoration-color",
-            "text-emphasis",
-            "text-emphasis-color",
-            "text-indent",
-            "text-shadow",
-            "top",
-            "transform",
-            "transform-origin",
-            "vertical-align",
-            "visibility",
-            "width",
-            "word-spacing",
-            "z-index"
+            { CssKeywords.InterCharacter, RubyPosition.InterCharacter },
+            { CssKeywords.Over, RubyPosition.Over },
+            { CssKeywords.Under, RubyPosition.Under },
         };
-	}
+
+        /// <summary>
+        /// Contains the string-RubyOverhangMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, RubyOverhangMode> RubyOverhangModes = new Dictionary<String, RubyOverhangMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.Auto, RubyOverhangMode.Auto },
+            { CssKeywords.End, RubyOverhangMode.End },
+            { CssKeywords.None, RubyOverhangMode.None },
+            { CssKeywords.Start, RubyOverhangMode.Start },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexDirection mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexDirection> FlexDirections = new Dictionary<String, FlexDirection>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.Column, FlexDirection.Column },
+            { CssKeywords.ColumnReverse, FlexDirection.ColumnReverse },
+            { CssKeywords.Row, FlexDirection.Row },
+            { CssKeywords.RowReverse, FlexDirection.RowReverse },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexWrapMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexWrapMode> FlexWrapModes = new Dictionary<String, FlexWrapMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.Nowrap, FlexWrapMode.NoWrap },
+            { CssKeywords.Wrap, FlexWrapMode.Wrap },
+            { CssKeywords.WrapReverse, FlexWrapMode.WrapReverse },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexContentMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexContentMode> JustifyContentModes = new Dictionary<String, FlexContentMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.FlexStart, FlexContentMode.Start },
+            { CssKeywords.FlexEnd, FlexContentMode.End },
+            { CssKeywords.Center, FlexContentMode.Center },
+            { CssKeywords.SpaceBetween, FlexContentMode.SpaceBetween },
+            { CssKeywords.SpaceAround, FlexContentMode.SpaceAround },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexContentMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexContentMode> AlignContentModes = new Dictionary<String, FlexContentMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.FlexStart, FlexContentMode.Start },
+            { CssKeywords.FlexEnd, FlexContentMode.End },
+            { CssKeywords.Center, FlexContentMode.Center },
+            { CssKeywords.SpaceBetween, FlexContentMode.SpaceBetween },
+            { CssKeywords.SpaceAround, FlexContentMode.SpaceAround },
+            { CssKeywords.Stretch, FlexContentMode.Stretch },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexContentMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexContentMode> AlignItemsModes = new Dictionary<String, FlexContentMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.FlexStart, FlexContentMode.Start },
+            { CssKeywords.FlexEnd, FlexContentMode.End },
+            { CssKeywords.Center, FlexContentMode.Center },
+            { CssKeywords.Baseline, FlexContentMode.Baseline },
+            { CssKeywords.Stretch, FlexContentMode.Stretch },
+        };
+
+        /// <summary>
+        /// Contains the string-FlexContentMode mapping.
+        /// </summary>
+        public static readonly Dictionary<String, FlexContentMode> AlignSelfModes = new Dictionary<String, FlexContentMode>(StringComparer.OrdinalIgnoreCase)
+        {
+            { CssKeywords.Auto, FlexContentMode.Auto },
+            { CssKeywords.FlexStart, FlexContentMode.Start },
+            { CssKeywords.FlexEnd, FlexContentMode.End },
+            { CssKeywords.Center, FlexContentMode.Center },
+            { CssKeywords.Baseline, FlexContentMode.Baseline },
+            { CssKeywords.Stretch, FlexContentMode.Stretch },
+        };
+    }
 }

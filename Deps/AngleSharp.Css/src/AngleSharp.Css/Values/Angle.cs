@@ -1,7 +1,6 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
     using AngleSharp.Css.Dom;
-    using AngleSharp.Css.Extensions;
     using System;
     using System.Globalization;
 
@@ -9,40 +8,40 @@
     /// Represents an angle object.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/angle
     /// </summary>
-    public struct Angle : IEquatable<Angle>, IComparable<Angle>, ICssValue
+    struct Angle : IEquatable<Angle>, IComparable<Angle>, ICssValue
     {
         #region Basic angles
 
         /// <summary>
         /// The zero angle.
         /// </summary>
-        public static readonly Angle Zero = new Angle(0f, Angle.Unit.Rad);
+        public static readonly Angle Zero = new Angle(0.0, Angle.Unit.Rad);
 
         /// <summary>
         /// The 45° angle.
         /// </summary>
-        public static readonly Angle HalfQuarter = new Angle(45f, Angle.Unit.Deg);
+        public static readonly Angle HalfQuarter = new Angle(45.0, Angle.Unit.Deg);
 
         /// <summary>
         /// The 90° angle.
         /// </summary>
-        public static readonly Angle Quarter = new Angle(90f, Angle.Unit.Deg);
+        public static readonly Angle Quarter = new Angle(90.0, Angle.Unit.Deg);
 
         /// <summary>
         /// The 135° angle.
         /// </summary>
-        public static readonly Angle TripleHalfQuarter = new Angle(135f, Angle.Unit.Deg);
+        public static readonly Angle TripleHalfQuarter = new Angle(135.0, Angle.Unit.Deg);
 
         /// <summary>
         /// The 180° angle.
         /// </summary>
-        public static readonly Angle Half = new Angle(180f, Angle.Unit.Deg);
+        public static readonly Angle Half = new Angle(180.0, Angle.Unit.Deg);
 
         #endregion
 
         #region Fields
 
-        private readonly Single _value;
+        private readonly Double _value;
         private readonly Unit _unit;
 
         #endregion
@@ -54,7 +53,7 @@
         /// </summary>
         /// <param name="value">The value of the angle.</param>
         /// <param name="unit">The unit of the angle.</param>
-        public Angle(Single value, Unit unit)
+        public Angle(Double value, Unit unit)
         {
             _value = value;
             _unit = unit;
@@ -69,13 +68,13 @@
         /// </summary>
         public String CssText
         {
-            get { return ToString(); }
+            get { return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString); }
         }
 
         /// <summary>
         /// Gets the value of the angle.
         /// </summary>
-        public Single Value
+        public Double Value
         {
             get { return _value; }
         }
@@ -168,15 +167,6 @@
         #region Methods
 
         /// <summary>
-        /// Returns a string representing the angle.
-        /// </summary>
-        /// <returns>The unit string.</returns>
-        public override String ToString()
-        {
-            return String.Concat(_value.ToString(CultureInfo.InvariantCulture), UnitString);
-        }
-
-        /// <summary>
         /// Tries to convert the given string to an Angle.
         /// </summary>
         /// <param name="s">The string to convert.</param>
@@ -184,7 +174,7 @@
         /// <returns>True if successful, otherwise false.</returns>
         public static Boolean TryParse(String s, out Angle result)
         {
-            var value = default(Single);
+            var value = default(Double);
             var unit = GetUnit(s.CssUnit(out value));
 
             if (unit != Unit.None)
@@ -218,18 +208,18 @@
         /// Converts the contained value to rad.
         /// </summary>
         /// <returns>The value in rad.</returns>
-        public Single ToRadian()
+        public Double ToRadian()
         {
             switch (_unit)
             {
                 case Unit.Deg:
-                    return (Single)(Math.PI / 180.0 * _value);
+                    return Math.PI / 180.0 * _value;
 
                 case Unit.Grad:
-                    return (Single)(Math.PI / 200.0 * _value);
+                    return Math.PI / 200.0 * _value;
 
                 case Unit.Turn:
-                    return (Single)(2.0 * Math.PI * _value);
+                    return 2.0 * Math.PI * _value;
 
                 default:
                     return _value;
@@ -240,18 +230,18 @@
         /// Converts the contained value to turns.
         /// </summary>
         /// <returns>The value in turns.</returns>
-        public Single ToTurns()
+        public Double ToTurns()
         {
             switch (_unit)
             {
                 case Unit.Deg:
-                    return (Single)(_value / 360.0);
+                    return _value / 360.0;
 
                 case Unit.Grad:
-                    return (Single)(_value / 400.0);
+                    return _value / 400.0;
 
                 case Unit.Rad:
-                    return (Single)(_value / (2.0 * Math.PI));
+                    return _value / (2.0 * Math.PI);
 
                 default:
                     return _value;

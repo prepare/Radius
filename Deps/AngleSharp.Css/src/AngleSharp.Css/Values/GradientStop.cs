@@ -1,18 +1,18 @@
-﻿namespace AngleSharp.Css.Values
+namespace AngleSharp.Css.Values
 {
+    using AngleSharp.Css.Dom;
     using System;
 
     /// <summary>
     /// More information can be found at the W3C:
     /// http://dev.w3.org/csswg/css-images-3/#color-stop-syntax
     /// </summary>
-    public struct GradientStop
+    struct GradientStop : ICssValue
     {
         #region Fields
 
         private readonly Color _color;
-        private readonly Length _location;
-        private readonly Boolean _determined;
+        private readonly ICssValue _location;
 
         #endregion
 
@@ -22,23 +22,11 @@
         /// Creates a new gradient stop.
         /// </summary>
         /// <param name="color">The color of the stop.</param>
-        /// <param name="location">The location of the stop.</param>
-        public GradientStop(Color color, Length location)
+        /// <param name="location">The location of the stop, if any.</param>
+        public GradientStop(Color color, ICssValue location = null)
         {
             _color = color;
             _location = location;
-            _determined = true;
-        }
-
-        /// <summary>
-        /// Creates a new gradient stop.
-        /// </summary>
-        /// <param name="color">The color of the stop.</param>
-        public GradientStop(Color color)
-        {
-            _color = color;
-            _determined = false;
-            _location = Length.Zero;
         }
 
         #endregion
@@ -48,48 +36,27 @@
         /// <summary>
         /// Gets the color of the gradient stop.
         /// </summary>
-        public Color Color
-        {
-            get { return _color; }
-        }
+        public Color Color => _color;
 
         /// <summary>
         /// Gets if the position is determined.
         /// </summary>
-        public Boolean IsDetermined
-        {
-            get { return _determined; }
-        }
+        public Boolean IsDetermined => _location != null;
 
         /// <summary>
         /// Gets if the position is undetermined.
         /// </summary>
-        public Boolean IsUndetermined
-        {
-            get { return !_determined; }
-        }
+        public Boolean IsUndetermined => _location == null;
 
         /// <summary>
         /// Gets the location of the gradient stop.
         /// </summary>
-        public Length Location
-        {
-            get { return _location; }
-        }
-
-        #endregion
-
-        #region Methods
+        public ICssValue Location => _location;
 
         /// <summary>
-        /// Returns the string representation of the gradient stop.
+        /// Gets the CSS text representation.
         /// </summary>
-        public override String ToString()
-        {
-            return _determined ? 
-                String.Concat(_color.ToString(), " ", _location.ToString()) : 
-                _color.ToString();
-        }
+        public String CssText => IsDetermined ? String.Concat(_color.CssText, " ", _location.CssText) : _color.CssText;
 
         #endregion
     }

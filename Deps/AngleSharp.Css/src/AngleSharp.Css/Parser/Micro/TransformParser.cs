@@ -1,5 +1,6 @@
-﻿namespace AngleSharp.Css.Parser
+namespace AngleSharp.Css.Parser
 {
+    using AngleSharp.Css.Dom;
     using AngleSharp.Css.Values;
     using AngleSharp.Text;
     using System;
@@ -32,13 +33,6 @@
             { FunctionNames.Perspective, ParsePerspective },
         };
 
-        public static ITransform Parse(String str)
-        {
-            var source = new StringSource(str);
-            var result = source.ParseTransform();
-            return source.IsDone ? result : null;
-        }
-
         public static ITransform ParseTransform(this StringSource source)
         {
             var pos = source.Index;
@@ -68,14 +62,14 @@
         /// </summary>
         private static SkewTransform ParseSkew2d(StringSource source)
         {
-            var x = source.ParseAngle();
+            var x = source.ParseAngleOrCalc();
             var c = source.SkipGetSkip();
-            var y = source.ParseAngle();
+            var y = source.ParseAngleOrCalc();
             var f = source.SkipGetSkip();
 
-            if (x.HasValue && y.HasValue && c == Symbols.Comma && f == Symbols.RoundBracketClose)
+            if (x != null && y != null && c == Symbols.Comma && f == Symbols.RoundBracketClose)
             {
-                return new SkewTransform(x.Value, y.Value);
+                return new SkewTransform(x, y);
             }
 
             return null;
@@ -87,12 +81,12 @@
         /// </summary>
         private static SkewTransform ParseSkewX(StringSource source)
         {
-            var x = source.ParseAngle();
+            var x = source.ParseAngleOrCalc();
             var f = source.SkipGetSkip();
 
-            if (x.HasValue && f == Symbols.RoundBracketClose)
+            if (x != null && f == Symbols.RoundBracketClose)
             {
-                return new SkewTransform(x.Value, Angle.Zero);
+                return new SkewTransform(x, null);
             }
 
             return null;
@@ -104,12 +98,12 @@
         /// </summary>
         private static SkewTransform ParseSkewY(StringSource source)
         {
-            var y = source.ParseAngle();
+            var y = source.ParseAngleOrCalc();
             var f = source.SkipGetSkip();
 
-            if (y.HasValue && f == Symbols.RoundBracketClose)
+            if (y != null && f == Symbols.RoundBracketClose)
             {
-                return new SkewTransform(Angle.Zero, y.Value);
+                return new SkewTransform(null, y);
             }
 
             return null;
@@ -139,7 +133,7 @@
         /// </summary>
         private static MatrixTransform ParseMatrix(StringSource source, Int32 count)
         {
-            var numbers = new Single[count];
+            var numbers = new Double[count];
             var num = source.ParseNumber();
 
             if (num.HasValue)
@@ -175,7 +169,7 @@
         /// </summary>
         private static RotateTransform ParseRotate2d(StringSource source)
         {
-            return ParseRotate(source, Single.NaN, Single.NaN, Single.NaN);
+            return ParseRotate(source, Double.NaN, Double.NaN, Double.NaN);
         }
 
         /// <summary>
@@ -230,14 +224,14 @@
         /// A broad variety of rotate transforms.
         /// http://www.w3.org/TR/css3-transforms/#funcdef-rotate3d
         /// </summary>
-        private static RotateTransform ParseRotate(StringSource source, Single x, Single y, Single z)
+        private static RotateTransform ParseRotate(StringSource source, Double x, Double y, Double z)
         {
-            var angle = source.ParseAngle();
+            var angle = source.ParseAngleOrCalc();
             var f = source.SkipGetSkip();
 
-            if (angle.HasValue && f == Symbols.RoundBracketClose)
+            if (angle != null && f == Symbols.RoundBracketClose)
             {
-                return new RotateTransform(x, z, y, angle.Value);
+                return new RotateTransform(x, z, y, angle);
             }
 
             return null;
@@ -254,7 +248,7 @@
 
             if (x.HasValue)
             {
-                var y = default(Single?);
+                var y = default(Double?);
 
                 if (f == Symbols.Comma)
                 {
@@ -264,7 +258,7 @@
 
                 if (f == Symbols.RoundBracketClose)
                 {
-                    return new ScaleTransform(x.Value, y ?? x.Value, 1f);
+                    return new ScaleTransform(x.Value, y ?? x.Value, 1.0);
                 }
             }
 
@@ -282,8 +276,8 @@
 
             if (x.HasValue)
             {
-                var y = default(Single?);
-                var z = default(Single?);
+                var y = default(Double?);
+                var z = default(Double?);
 
                 if (f == Symbols.Comma)
                 {
@@ -322,7 +316,7 @@
 
             if (x.HasValue && f == Symbols.RoundBracketClose)
             {
-                return new ScaleTransform(x.Value, 1f, 1f);
+                return new ScaleTransform(x.Value, 1.0, 1.0);
             }
 
             return null;
@@ -339,7 +333,7 @@
 
             if (y.HasValue && f == Symbols.RoundBracketClose)
             {
-                return new ScaleTransform(1f, y.Value, 1f);
+                return new ScaleTransform(1.0, y.Value, 1.0);
             }
 
             return null;
@@ -356,7 +350,7 @@
 
             if (z.HasValue && f == Symbols.RoundBracketClose)
             {
-                return new ScaleTransform(1f, 1f, z.Value);
+                return new ScaleTransform(1.0, 1.0, z.Value);
             }
 
             return null;
@@ -368,22 +362,22 @@
         /// </summary>
         private static TranslateTransform ParseTranslate2d(StringSource source)
         {
-            var x = source.ParseDistance();
+            var x = source.ParseDistanceOrCalc();
             var f = source.SkipGetSkip();
 
-            if (x.HasValue)
+            if (x != null)
             {
-                var y = default(Length?);
+                var y = default(ICssValue);
 
                 if (f == Symbols.Comma)
                 {
-                    y = source.ParseDistance();
+                    y = source.ParseDistanceOrCalc();
                     f = source.SkipGetSkip();
                 }
 
                 if (f == Symbols.RoundBracketClose)
                 {
-                    return new TranslateTransform(x.Value, y ?? Length.Zero, Length.Zero);
+                    return new TranslateTransform(x, y, null);
                 }
             }
 
@@ -396,34 +390,34 @@
         /// </summary>
         private static TranslateTransform ParseTranslate3d(StringSource source)
         {
-            var x = source.ParseDistance();
+            var x = source.ParseDistanceOrCalc();
             var f = source.SkipGetSkip();
 
-            if (x.HasValue)
+            if (x != null)
             {
-                var y = default(Length?);
-                var z = default(Length?);
+                var y = default(ICssValue);
+                var z = default(ICssValue);
 
                 if (f == Symbols.Comma)
                 {
-                    y = source.ParseDistance();
+                    y = source.ParseDistanceOrCalc();
                     f = source.SkipGetSkip();
 
-                    if (!y.HasValue)
+                    if (y == null)
                     {
                         return null;
                     }
 
                     if (f == Symbols.Comma)
                     {
-                        z = source.ParseDistance();
+                        z = source.ParseDistanceOrCalc();
                         f = source.SkipGetSkip();
                     }
                 }
 
                 if (f == Symbols.RoundBracketClose)
                 {
-                    return new TranslateTransform(x.Value, y ?? Length.Zero, z ?? Length.Zero);
+                    return new TranslateTransform(x, y, z);
                 }
             }
 
@@ -436,12 +430,12 @@
         /// </summary>
         private static TranslateTransform ParseTranslateX(StringSource source)
         {
-            var x = source.ParseDistance();
+            var x = source.ParseDistanceOrCalc();
             var f = source.SkipGetSkip();
 
-            if (x.HasValue && f == Symbols.RoundBracketClose)
+            if (x != null && f == Symbols.RoundBracketClose)
             {
-                return new TranslateTransform(x.Value, Length.Zero, Length.Zero);
+                return new TranslateTransform(x, null, null);
             }
 
             return null;
@@ -453,12 +447,12 @@
         /// </summary>
         private static TranslateTransform ParseTranslateY(StringSource source)
         {
-            var y = source.ParseDistance();
+            var y = source.ParseDistanceOrCalc();
             var f = source.SkipGetSkip();
 
-            if (y.HasValue && f == Symbols.RoundBracketClose)
+            if (y != null && f == Symbols.RoundBracketClose)
             {
-                return new TranslateTransform(Length.Zero, y.Value, Length.Zero);
+                return new TranslateTransform(null, y, null);
             }
 
             return null;
@@ -470,12 +464,12 @@
         /// </summary>
         private static TranslateTransform ParseTranslateZ(StringSource source)
         {
-            var z = source.ParseDistance();
+            var z = source.ParseDistanceOrCalc();
             var f = source.SkipGetSkip();
 
-            if (z.HasValue && f == Symbols.RoundBracketClose)
+            if (z != null && f == Symbols.RoundBracketClose)
             {
-                return new TranslateTransform(Length.Zero, Length.Zero, z.Value);
+                return new TranslateTransform(null, null, z);
             }
 
             return null;
@@ -487,12 +481,12 @@
         /// </summary>
         private static ITransform ParsePerspective(StringSource source)
         {
-            var l = source.ParseLength();
+            var l = source.ParseLengthOrCalc();
             var f = source.SkipGetSkip();
 
-            if (l.HasValue && f == Symbols.RoundBracketClose)
+            if (l != null && f == Symbols.RoundBracketClose)
             {
-                return new PerspectiveTransform(l.Value);
+                return new PerspectiveTransform(l);
             }
 
             return null;

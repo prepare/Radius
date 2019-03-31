@@ -1,17 +1,60 @@
-﻿namespace AngleSharp.Css.Parser
+namespace AngleSharp.Css.Parser
 {
+    using AngleSharp.Css.Dom;
     using AngleSharp.Css.Values;
     using AngleSharp.Text;
     using System;
 
     static class PointParser
     {
-        public static Point? Parse(String str)
+        public static ICssValue ParsePointX(this StringSource source)
         {
-            var source = new StringSource(str);
-            var result = source.ParsePoint();
-            return source.IsDone ? result : null;
+            return source.ParsePointDir(IsHorizontal);
         }
+
+        public static ICssValue ParsePointY(this StringSource source)
+        {
+            return source.ParsePointDir(IsVertical);
+        }
+
+        private static ICssValue ParsePointDir(this StringSource source, Predicate<String> checkKeyword)
+        {
+            var pos = source.Index;
+            var x = new Length(50f, Length.Unit.Percent);
+            var l = source.ParseIdent();
+
+            if (l == null)
+            {
+                var f = source.ParseDistanceOrCalc();
+
+                if (f != null)
+                {
+                    return f;
+                }
+            }
+            else if (checkKeyword(l))
+            {
+                return KeywordToLength(l);
+            }
+
+            source.BackTo(pos);
+            return null;
+        }
+
+        public static Point3 ParsePoint3(this StringSource source)
+        {
+            var pt = source.ParsePoint();
+            source.SkipSpacesAndComments();
+            var z = source.ParseLengthOrCalc();
+
+            if (pt.HasValue)
+            {
+                return new Point3(pt.Value.X, pt.Value.Y, z);
+            }
+
+            return null;
+        }
+
         public static Point? ParsePoint(this StringSource source)
         {
             var pos = source.Index;
@@ -39,7 +82,7 @@
             }
             else if (l != null)
             {
-                var s = source.ParseDistance();
+                var s = source.ParseDistanceOrCalc();
 
                 if (IsHorizontal(l))
                 {
@@ -54,23 +97,22 @@
             }
             else
             {
-                var f = source.ParseDistance();
+                var f = source.ParseDistanceOrCalc();
                 source.SkipSpacesAndComments();
-                var s = source.ParseDistance();
+                var s = source.ParseDistanceOrCalc();
 
-                if (s.HasValue)
+                if (s != null)
                 {
                     return new Point(f ?? x, s ?? y);
                 }
-                else if (f.HasValue)
+                else if (f != null)
                 {
                     pos = source.Index;
                     r = source.ParseIdent();
 
                     if (r == null)
                     {
-                        x = f.Value;
-                        return new Point(x, y);
+                        return new Point(f, y);
                     }
                     else if (IsVertical(r))
                     {
@@ -106,17 +148,17 @@
             }
             else
             {
-                var w = source.ParseDistance();
+                var w = source.ParseDistanceOrCalc();
 
-                if (!w.HasValue && !source.IsIdentifier(CssKeywords.Auto))
+                if (w == null && !source.IsIdentifier(CssKeywords.Auto))
                 {
                     return null;
                 }
 
                 source.SkipSpacesAndComments();
-                var h = source.ParseDistance();
+                var h = source.ParseDistanceOrCalc();
 
-                if (!h.HasValue)
+                if (h == null)
                 {
                     source.IsIdentifier(CssKeywords.Auto);
                 }

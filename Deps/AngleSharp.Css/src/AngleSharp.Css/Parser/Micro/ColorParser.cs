@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css.Parser
+namespace AngleSharp.Css.Parser
 {
     using AngleSharp.Css.Values;
     using AngleSharp.Text;
@@ -18,13 +18,6 @@
             { FunctionNames.Hwb, ParseHwba },
             { FunctionNames.Hwba, ParseHwba },
         };
-
-        public static Color? Parse(String str)
-        {
-            var source = new StringSource(str);
-            var result = source.ParseColor();
-            return source.IsDone ? result : null;
-        }
 
         public static Color? ParseColor(this StringSource source)
         {
@@ -208,13 +201,13 @@
             return null;
         }
 
-        private static Single? ParsePercent(StringSource source)
+        private static Double? ParsePercent(StringSource source)
         {
             var unit = source.ParseUnit();
 
             if (unit != null && unit.Dimension == "%")
             {
-                return Single.Parse(unit.Value, CultureInfo.InvariantCulture) * 0.01f;
+                return Double.Parse(unit.Value, CultureInfo.InvariantCulture) * 0.01f;
             }
 
             return null;
@@ -241,13 +234,13 @@
             return null;
         }
 
-        private static Single? ParseAlpha(StringSource source)
+        private static Double? ParseAlpha(StringSource source)
         {
             var unit = source.ParseUnit();
 
             if (unit != null)
             {
-                var value = Single.Parse(unit.Value, CultureInfo.InvariantCulture);
+                var value = Double.Parse(unit.Value, CultureInfo.InvariantCulture);
 
                 if (unit.Dimension == "%")
                 {
@@ -262,13 +255,13 @@
             return null;
         }
 
-        private static Single? ParseAngle(StringSource source)
+        private static Double? ParseAngle(StringSource source)
         {
             var unit = source.ParseUnit();
 
             if (unit != null)
             {
-                var value = Single.Parse(unit.Value, CultureInfo.InvariantCulture);
+                var value = Double.Parse(unit.Value, CultureInfo.InvariantCulture);
                 var dim = Angle.Unit.Deg;
 
                 if (unit.Dimension == String.Empty ||

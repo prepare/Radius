@@ -1,4 +1,4 @@
-﻿namespace AngleSharp.Css.Dom
+namespace AngleSharp.Css.Dom
 {
     using AngleSharp.Attributes;
     using System;
@@ -15,6 +15,11 @@
         /// </summary>
         [DomName("name")]
         String Name { get; }
+
+        /// <summary>
+        /// Gets the value model of the property.
+        /// </summary>
+        ICssValue RawValue { get; }
 
         /// <summary>
         /// Gets or sets the value of the property.
@@ -39,8 +44,18 @@
         Boolean IsInitial { get; }
 
         /// <summary>
+        /// Gets if the property can be animated.
+        /// </summary>
+        Boolean IsAnimatable { get; }
+
+        /// <summary>
         /// Gets if the property can be inherited.
         /// </summary>
         Boolean CanBeInherited { get; }
+
+        /// <summary>
+        /// Gets if the property is a shorthand.
+        /// </summary>
+        Boolean IsShorthand { get; }
     }
 }
