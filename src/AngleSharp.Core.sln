@@ -20,9 +20,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp.Core.Tests", "AngleSharp.Core.Tests\AngleSharp.Core.Tests.csproj", "{C3074D7E-CA6C-4F2C-813D-BD97462DC3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngleSharp.Core.Tests", "AngleSharp.Core.Tests\AngleSharp.Core.Tests.csproj", "{C3074D7E-CA6C-4F2C-813D-BD97462DC3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test3_MixHtml", "..\..\HtmlRenderer\Source\Test3_MixHtml\Test3_MixHtml.csproj", "{14840A73-6D38-4A2A-A71C-F84DC4FB4620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutFarm.HtmlComposer", "..\..\HtmlRenderer\Source\LayoutFarm.HtmlComposer\LayoutFarm.HtmlComposer.csproj", "{1AF17E34-4C2D-4657-B993-E0608C555111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutFarm.YourHtmlWidget", "..\..\HtmlRenderer\Source\LayoutFarm.YourHtmlWidget\LayoutFarm.YourHtmlWidget.csproj", "{9A73D7BE-C7F0-47A8-8FD4-2906C4917148}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFarm.One.HtmlRenderer", "..\..\PixelFarm\src\x_autogen2\PixelFarm.One.HtmlRenderer\PixelFarm.One.HtmlRenderer.csproj", "{662F2274-D6F8-413A-A908-1B2F10C01348}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintLab.Platforms.WinForms", "..\..\PixelFarm\src\PixelFarm\PaintLab.Platforms.WinForms\PaintLab.Platforms.WinForms.csproj", "{4602B28B-EEEC-4A69-854C-B00B8B616837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintLab.Sprite", "..\..\HtmlRenderer\Source\PaintLab.Sprite\PaintLab.Sprite.csproj", "{5C694901-F73A-4AB7-9FA6-024DD591C33E}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\HtmlRenderer\Source\Test3_MixHtml_SH\Test3_MixHtml_SH.projitems*{14840a73-6d38-4a2a-a71c-f84dc4fb4620}*SharedItemsImports = 4
+		..\..\PixelFarm\src\Tests\WinFormTestBed2\WinFormTestBed2.projitems*{14840a73-6d38-4a2a-a71c-f84dc4fb4620}*SharedItemsImports = 4
+		..\..\PixelFarm\src\PixelFarm\MiniOpenTKWinForms_SH\MiniOpenTKWinForms_SH.projitems*{4602b28b-eeec-4a69-854c-b00b8b616837}*SharedItemsImports = 4
+		..\..\PixelFarm\src\PixelFarm\PixelFarm.Drawing.GdiPlus_SH\PixelFarm.Drawing.GdiPlus_SH.projitems*{4602b28b-eeec-4a69-854c-b00b8b616837}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -52,6 +70,30 @@ Global
 		{C3074D7E-CA6C-4F2C-813D-BD97462DC3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3074D7E-CA6C-4F2C-813D-BD97462DC3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3074D7E-CA6C-4F2C-813D-BD97462DC3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14840A73-6D38-4A2A-A71C-F84DC4FB4620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14840A73-6D38-4A2A-A71C-F84DC4FB4620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14840A73-6D38-4A2A-A71C-F84DC4FB4620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14840A73-6D38-4A2A-A71C-F84DC4FB4620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF17E34-4C2D-4657-B993-E0608C555111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF17E34-4C2D-4657-B993-E0608C555111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF17E34-4C2D-4657-B993-E0608C555111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF17E34-4C2D-4657-B993-E0608C555111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A73D7BE-C7F0-47A8-8FD4-2906C4917148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A73D7BE-C7F0-47A8-8FD4-2906C4917148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A73D7BE-C7F0-47A8-8FD4-2906C4917148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A73D7BE-C7F0-47A8-8FD4-2906C4917148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662F2274-D6F8-413A-A908-1B2F10C01348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662F2274-D6F8-413A-A908-1B2F10C01348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662F2274-D6F8-413A-A908-1B2F10C01348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662F2274-D6F8-413A-A908-1B2F10C01348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4602B28B-EEEC-4A69-854C-B00B8B616837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4602B28B-EEEC-4A69-854C-B00B8B616837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4602B28B-EEEC-4A69-854C-B00B8B616837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4602B28B-EEEC-4A69-854C-B00B8B616837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C694901-F73A-4AB7-9FA6-024DD591C33E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C694901-F73A-4AB7-9FA6-024DD591C33E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C694901-F73A-4AB7-9FA6-024DD591C33E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C694901-F73A-4AB7-9FA6-024DD591C33E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
